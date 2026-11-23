@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AgroSignal</title>
+<meta name="description" content="Compare one growing season's MODIS NDVI over cropland with a baseline of years, with CHIRPS rainfall, anywhere on Earth, in the browser.">
+<link rel="stylesheet" href="vendor/maplibre-gl.css">
+<link rel="stylesheet" href="css/dash.css">
+<style>:root { --accent: #3d7a1f; --accent-soft: #edf4e6; }</style>
+<script src="vendor/maplibre-gl.js"></script>
+</head>
+<body>
+<div class="app">
+  <aside class="rail" aria-label="Analysis steps">
+    <a class="brand" href="./"><i></i><b>AgroSignal</b></a>
+    <div class="steps">
+      <section class="step open" data-step="0">
+        <button class="step-h" type="button" aria-expanded="true"><span class="n">1</span><span class="t">Area</span><span class="s" id="sum-0">Search a place or draw a box</span></button>
+        <div class="step-b" data-pane="0">
+          <form id="search" class="row" role="search">
+            <label class="vh" for="q">Place</label>
+            <input id="q" class="in" type="search" placeholder="Town or district" autocomplete="off" style="flex:1 1 0;width:auto">
+            <button class="rb" type="submit" style="flex:0 0 auto">Search</button>
+          </form>
+          <ul id="results" class="list" hidden></ul>
+          <div class="row" style="margin-top:8px">
+            <button class="rb" id="draw" type="button" aria-pressed="false">Draw a box</button>
+            <button class="rb" id="example" type="button">Kano example</button>
+          </div>
+          <div class="chosen" id="chosen" hidden></div>
+          <p class="small" style="margin:10px 0 0">Up to 2,500 km², anywhere on land.</p>
+          <button class="rb go wide" id="next-0" type="button" disabled>Continue</button>
+        </div>
+      </section>
+      <section class="step locked" data-step="1">
+        <button class="step-h" type="button" aria-expanded="false"><span class="n">2</span><span class="t">Season and years</span><span class="s" id="sum-1">Months, season year, baseline</span></button>
+        <div class="step-b" data-pane="1" hidden>
+          <div class="row">
+            <label class="f">From<select id="m0" class="in"></select></label>
+            <label class="f">To<select id="m1" class="in"></select></label>
+          </div>
+          <label class="f">Season of<select id="year" class="in"></select></label>
+          <div class="row">
+            <label class="f">Baseline from<select id="b0" class="in"></select></label>
+            <label class="f">to<select id="b1" class="in"></select></label>
+          </div>
+          <label class="check"><input type="checkbox" id="crop" checked> Cropland pixels only</label>
+          <details>
+            <summary>Satellite</summary>
+            <label class="f">MODIS sensor<select id="sensor" class="in"><option value="terra">Terra (MOD13Q1), from 2001</option><option value="aqua">Aqua (MYD13Q1), from 2003</option></select></label>
+            <p class="small" style="margin:0">Run both to check that a result does not depend on one satellite's orbit.</p>
+          </details>
+          <p class="small warn" id="season-msg" hidden></p>
+          <button class="rb go wide" id="run" type="button" disabled>Run analysis</button>
+        </div>
+      </section>
+    </div>
+    <div class="status" id="status" hidden>
+      <div class="bar"><i id="bar"></i></div>
+      <div class="msg" id="msg" aria-live="polite"></div>
+      <details><summary>Processing log</summary><ol class="log" id="log"></ol></details>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="head">
+      <div class="title">
+        <h1 id="r-title">Season greenness against a baseline</h1>
+        <p class="sub" id="r-sub">Was this growing season greener or browner than usual, and was it wetter or drier?</p>
+      </div>
+      <details class="menu" id="dl-menu">
+        <summary class="hb" id="dl-btn">Download</summary>
+        <div class="menu-list">
+          <button type="button" data-x="geotiff">Maps<span>GeoTIFF, 7 bands, MODIS sinusoidal</span></button>
+          <button type="button" data-x="years">Yearly series<span>CSV with rainfall and temperature</span></button>
+          <button type="button" data-x="pixels">Pixels<span>CSV, one row per analysed pixel</span></button>
+          <button type="button" data-x="json">Processing record<span>JSON</span></button>
+          <button type="button" data-x="png">Map image<span>PNG</span></button>
+          <button type="button" data-x="print">Report<span>Print or save as PDF</span></button>
+        </div>
+      </details>
+      <button class="hb" id="about-open" type="button">About</button>
+    </header>
+
+    <section class="kpis empty" id="figs" aria-label="Key figures">
+      <div class="kpi"><div class="l">Season NDVI</div><div class="v">–</div><div class="d">regional mean over cropland</div></div>
+      <div class="kpi"><div class="l">Regional z-score</div><div class="v">–</div><div class="d">against the baseline seasons</div></div>
+      <div class="kpi"><div class="l">Rank</div><div class="v">–</div><div class="d">baseline seasons below this one</div></div>
+      <div class="kpi"><div class="l">Rainfall</div><div class="v">–</div><div class="d">CHIRPS, against the baseline mean</div></div>
+    </section>
+
+    <div class="body">
+      <div class="mapwrap">
+        <div id="map" role="region" aria-label="Map"></div>
+        <div class="mapbar">
+          <fieldset class="seg" id="layer-list" hidden><legend class="vh">Map layer</legend></fieldset>
+        </div>
+        <div class="legend" id="legend" hidden></div>
+      </div>
+
+      <section class="panel" aria-label="Evidence">
+        <div class="tabs" role="tablist">
+          <button type="button" role="tab" data-tab="years" aria-selected="true">Years</button>
+          <button type="button" role="tab" data-tab="curve" aria-selected="false">Season curve</button>
+          <button type="button" role="tab" data-tab="pixels" aria-selected="false">Pixels</button>
+          <button type="button" role="tab" data-tab="run" aria-selected="false">Run</button>
+        </div>
+        <div class="tabpane" data-tabpane="years"><p class="empty-state">Choose an area and a season, then run the analysis.</p></div>
+        <div class="tabpane" data-tabpane="curve" hidden><p class="empty-state">The within-season curve appears after a run.</p></div>
+        <div class="tabpane" data-tabpane="pixels" hidden><p class="empty-state">Pixel classes appear after a run.</p></div>
+        <div class="tabpane" data-tabpane="run" hidden><p class="empty-state">Run details appear after a run.</p></div>
+      </section>
+    </div>
+  </main>
+</div>
+
+<div class="tip" id="tip" hidden></div>
+
+<div class="sheet" id="about" hidden role="dialog" aria-modal="true" aria-labelledby="about-h">
+  <article>
+    <button class="hb x" id="about-close" type="button">Close</button>
+    <h2 id="about-h">About AgroSignal</h2>
+    <p>AgroSignal shows whether a growing season was greener or browner than usual. It compares the season's mean NDVI with the same months in a baseline of years, pixel by pixel, on the MODIS 250 m grid, and adds the season's rainfall. Everything runs in your browser.</p>
+    <h3>What the map shows</h3>
+    <table>
+      <tr><td>z-score</td><td>(season NDVI − baseline mean) ÷ baseline standard deviation, per pixel.</td></tr>
+      <tr><td>Anomaly</td><td>Season NDVI − baseline mean, in NDVI units.</td></tr>
+      <tr><td>VCI</td><td>Vegetation Condition Index after Kogan, on season-mean NDVI: 100 × (season − baseline minimum) ÷ (baseline maximum − minimum). Values below 0 or above 100 mean the season was outside the baseline range.</td></tr>
+      <tr><td>Season NDVI</td><td>Mean of the season's 16-day composites, keeping only pixels with good or marginal quality.</td></tr>
+      <tr><td>Cropland</td><td>Share of each MODIS pixel mapped as cropland by ESA WorldCover 2021.</td></tr>
+    </table>
+    <h3>Data</h3>
+    <table>
+      <tr><td>NDVI</td><td>MODIS/Terra MOD13Q1 v061 (or Aqua MYD13Q1), 16-day, 250 m (NASA LP DAAC), read from Microsoft Planetary Computer.</td></tr>
+      <tr><td>Cropland</td><td>ESA WorldCover 10 m 2021 v200, class 40 (Zanaga et al., 2022). CC BY 4.0.</td></tr>
+      <tr><td>Rainfall</td><td>CHIRPS v3.0 monthly (Climate Hazards Center, UC Santa Barbara), averaged to 0.2° and hosted with this tool; 60° S to 60° N. Season rainfall is the area mean over the calendar months the season covers.</td></tr>
+      <tr><td>Temperature</td><td>NASA POWER daily 2 m temperature (MERRA-2) at the centre of the area. Optional: the analysis runs without it if the service does not answer.</td></tr>
+      <tr><td>Basemap</td><td>© OpenStreetMap contributors, OpenFreeMap. Place search by Nominatim.</td></tr>
+    </table>
+    <h3>Limits</h3>
+    <ul>
+      <li>NDVI measures greenness, not yield. A green season can still have a poor harvest, and weeds or fallow regrowth also raise NDVI.</li>
+      <li>Terra's overpass has moved earlier since 2020 and Aqua's later since 2021, changing sun angle and shadow. Recent seasons may be affected; run both satellites to compare.</li>
+      <li>A pixel needs valid NDVI in at least half of the season's composites, and in at least two thirds of the baseline years.</li>
+      <li>The rainfall–NDVI correlation describes the baseline years only. It is not evidence that rainfall caused the anomaly.</li>
+      <li>No ground observations were used.</li>
+    </ul>
+    <p class="small">AgroSignal v1.0.0. Method, tests and validation in the <a href="https://github.com/oloyededavid/AgroSignal">repository</a>.</p>
+  </article>
+</div>
+
+<div class="report" id="report"></div>
+<script type="module" src="js/app.js"></script>
+</body>
+</html>
