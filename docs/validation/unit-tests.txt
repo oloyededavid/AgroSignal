@@ -1,0 +1,46 @@
+PASS  MODIS grid x aligned
+PASS  MODIS grid tile origin reproduced
+PASS  season window
+PASS  season crossing the year
+PASS  seasonOf inside
+PASS  seasonOf outside
+PASS  seasonOf crossing
+PASS  Jun-Oct: 9 Terra composites (10 Jun to 16 Oct, the last ending 31 Oct)
+PASS  Jun-Oct: 9 Aqua composites (the one starting 24 Oct runs into November)  9
+PASS  same count in a leap year
+PASS  Jun-Sep: the composite starting 30 Sep (day 273) runs into October and is left out
+PASS  Nov-Mar across the year end: 9, the last starting 6 Mar
+PASS  the year's last composite (day 353) belongs to a season that crosses the year
+PASS  whole year: 23 composites
+PASS  leap-year composite on 31 October (day 305) is outside Jun-Oct
+PASS  and inside a season starting 1 November
+PASS  leap-year 9 June composite (day 161) is in Jun-Oct
+PASS  screen: good and marginal kept
+PASS  screen: snow, cloud, fill and out of range dropped
+PASS  season mean: 3 of 4 valid
+PASS  season mean: 1 of 4 below half
+PASS  baseline mean
+PASS  baseline sample SD  0.12909944355487823
+PASS  baseline min and max
+PASS  baseline too few years
+PASS  anomaly
+PASS  z
+PASS  VCI  29.999990463256836
+PASS  no baseline gives NaN
+PASS  masked mean
+PASS  z classes  0.167,0.167,0.167,0.333,0.167
+PASS  percentile type 7
+PASS  mean and sample SD
+PASS  pearson
+PASS  season mean temperature  25.5
+PASS  missing day makes the temperature missing
+PASS  season months
+PASS  season months across the year end
+PASS  point in ring
+PASS  rain cells: centres inside an 0.4 degree box  [940,238,943,241] 4
+PASS  rain cells: small area falls back to the containing cell
+PASS  cell mean weighted
+PASS  cell mean skips no-data
+PASS  cell mean needs half the weight
+PASS  season rainfall sums months
+ALL PASSED

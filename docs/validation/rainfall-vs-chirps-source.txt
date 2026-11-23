@@ -1,0 +1,7 @@
+Season rainfall (Jun-Oct, mm) for the Kano example: browser (hosted 0.2 degree archive) against pipeline/reference_climate.py
+(recomputed from the original 0.05 degree CHIRPS v3.0 files on the CHC server). Run on 23 November 2026.
+The CHC server throttled the range requests after these seasons, so the check covers three seasons only.
+2001 reference 949.09 browser 949.02 diff 0.067
+2002 reference 1044.91 browser 1045.01 diff 0.102
+2003 reference 1006.83 browser 1006.77 diff 0.063
+The archive stores 0.2 mm steps per month, so a five-month season can differ by up to 0.5 mm from rounding alone.

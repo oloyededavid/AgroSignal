@@ -1,0 +1,7 @@
+anom valid js 35806 py 35806 max abs diff 1.7881393432617188e-07 mean abs 3.562076056275908e-08
+z valid js 35806 py 35806 max abs diff 9.5367431640625e-06 mean abs 1.2345348742588629e-06
+vci valid js 35806 py 35806 max abs diff 0.0002899169921875 mean abs 3.121312169146619e-05
+crop valid js 37442 py 37442 max abs diff 0.016420728370570736 mean abs 0.001278840113292136
+fixed pixels js 30583 py 30589 same 37402 of 37442
+regional max abs diff 1.0097750182014309e-05
+membership mismatches []
