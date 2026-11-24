@@ -5,15 +5,28 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>AgroSignal</title>
 <meta name="description" content="Compare one growing season's MODIS NDVI over cropland with a baseline of years, with CHIRPS rainfall, anywhere on Earth, in the browser.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:title" content="AgroSignal">
+<meta property="og:description" content="Compare one growing season's MODIS NDVI over cropland with a baseline of years, with CHIRPS rainfall, anywhere on Earth, in the browser.">
+<meta property="og:image" content="https://oloyededavid.github.io/geospatial-rs-portfolio/assets/tools/agrosignal-1200.webp">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="900">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="vendor/maplibre-gl.css">
 <link rel="stylesheet" href="css/dash.css">
 <style>:root { --accent: #3d7a1f; --accent-soft: #edf4e6; }</style>
 <script src="vendor/maplibre-gl.js"></script>
 </head>
 <body>
+<header class="topbar">
+  <a class="back" href="https://oloyededavid.github.io/geospatial-rs-portfolio/#studies"><span aria-hidden="true">&larr;</span> Back to portfolio</a>
+  <span class="tb-title">AgroSignal</span>
+  <span class="ver">v<span data-ver></span></span>
+  <button class="hb" id="about-open" type="button" aria-haspopup="dialog">About and method</button>
+</header>
 <div class="app">
   <aside class="rail" aria-label="Analysis steps">
-    <a class="brand" href="./"><i></i><b>AgroSignal</b></a>
     <div class="steps">
       <section class="step open" data-step="0">
         <button class="step-h" type="button" aria-expanded="true"><span class="n">1</span><span class="t">Area</span><span class="s" id="sum-0">Search a place or draw a box</span></button>
@@ -72,15 +85,15 @@
       <details class="menu" id="dl-menu">
         <summary class="hb" id="dl-btn">Download</summary>
         <div class="menu-list">
-          <button type="button" data-x="geotiff">Maps<span>GeoTIFF, 7 bands, MODIS sinusoidal</span></button>
-          <button type="button" data-x="years">Yearly series<span>CSV with rainfall and temperature</span></button>
-          <button type="button" data-x="pixels">Pixels<span>CSV, one row per analysed pixel</span></button>
-          <button type="button" data-x="json">Processing record<span>JSON</span></button>
-          <button type="button" data-x="png">Map image<span>PNG</span></button>
-          <button type="button" data-x="print">Report<span>Print or save as PDF</span></button>
+          <p class="menu-note" id="dl-note">Downloads are available once a result exists.</p>
+          <button type="button" disabled data-x="geotiff">Maps<span>GeoTIFF, 7 bands, MODIS sinusoidal</span></button>
+          <button type="button" disabled data-x="years">Yearly series<span>CSV with rainfall and temperature</span></button>
+          <button type="button" disabled data-x="pixels">Pixels<span>CSV, one row per analysed pixel</span></button>
+          <button type="button" disabled data-x="json">Processing record<span>JSON</span></button>
+          <button type="button" disabled data-x="png">Map image<span>PNG</span></button>
+          <button type="button" disabled data-x="print">Report<span>Print or save as PDF</span></button>
         </div>
       </details>
-      <button class="hb" id="about-open" type="button">About</button>
     </header>
 
     <section class="kpis empty" id="figs" aria-label="Key figures">
@@ -92,11 +105,12 @@
 
     <div class="body">
       <div class="mapwrap">
-        <div id="map" role="region" aria-label="Map"></div>
+        <div id="map" role="region" aria-label="Crop season map"></div>
+        <p class="mapnote" id="mapnote" role="status" hidden>The basemap could not be loaded. The analysis still works; only the background map is missing.</p>
         <div class="mapbar">
           <fieldset class="seg" id="layer-list" hidden><legend class="vh">Map layer</legend></fieldset>
         </div>
-        <div class="legend" id="legend" hidden></div>
+        <details class="legend" id="legend" hidden open><summary>Legend</summary><div id="legend-body"></div></details>
       </div>
 
       <section class="panel" aria-label="Evidence">
@@ -146,7 +160,7 @@
       <li>The rainfall–NDVI correlation describes the baseline years only. It is not evidence that rainfall caused the anomaly.</li>
       <li>No ground observations were used.</li>
     </ul>
-    <p class="small">AgroSignal v1.0.0. Method, tests and validation in the <a href="https://github.com/oloyededavid/AgroSignal">repository</a>.</p>
+    <p class="small">AgroSignal v<span data-ver></span>. Method, tests and validation in the <a href="https://github.com/oloyededavid/AgroSignal">repository</a>. Code MIT; data under their own terms, listed in the <a href="https://github.com/oloyededavid/AgroSignal/blob/main/docs/data-register.md">data register</a> (WorldCover CC BY 4.0; CHIRPS copyright waived by the Climate Hazards Center).</p>
   </article>
 </div>
 
