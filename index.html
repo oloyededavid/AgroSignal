@@ -136,12 +136,13 @@
     <button class="hb x" id="about-close" type="button">Close</button>
     <h2 id="about-h">About AgroSignal</h2>
     <p>AgroSignal shows whether a growing season was greener or browner than usual. It compares the season's mean NDVI with the same months in a baseline of years, pixel by pixel, on the MODIS 250 m grid, and adds the season's rainfall. Everything runs in your browser.</p>
+    <div class="plain"><h3>In short</h3><ul><li><b>What it uses:</b> greenness of cropland measured by the MODIS satellites every 16 days at 250 m, and monthly rainfall.</li><li><b>What it compares:</b> one growing season with the same months in a range of earlier years.</li><li><b>What it shows:</b> where the season was greener or browner than usual, and whether it was wetter or drier.</li><li><b>What it cannot do:</b> measure yield or say why a season differed; greener is not the same as a better harvest.</li></ul></div>
     <h3>What the map shows</h3>
     <table>
-      <tr><td>z-score</td><td>(season NDVI − baseline mean) ÷ baseline standard deviation, per pixel.</td></tr>
+      <tr><td>z-score</td><td>How unusual the season is, in standard deviations of the baseline years: (season NDVI − baseline mean) ÷ baseline standard deviation, per pixel.</td></tr>
       <tr><td>Anomaly</td><td>Season NDVI − baseline mean, in NDVI units.</td></tr>
-      <tr><td>VCI</td><td>Vegetation Condition Index after Kogan, on season-mean NDVI: 100 × (season − baseline minimum) ÷ (baseline maximum − minimum). Values below 0 or above 100 mean the season was outside the baseline range.</td></tr>
-      <tr><td>Season NDVI</td><td>Mean of the season's 16-day composites, keeping only pixels with good or marginal quality.</td></tr>
+      <tr><td>VCI</td><td>Vegetation Condition Index after Kogan, on season-mean NDVI; it places the season between the worst (0) and best (100) baseline years: 100 × (season − baseline minimum) ÷ (baseline maximum − minimum). Values below 0 or above 100 mean the season was outside the baseline range.</td></tr>
+      <tr><td>Season NDVI</td><td>NDVI (normalised difference vegetation index) measures how green the land is, from about 0 for bare ground to about 0.9 for dense crops. Mean of the season's 16-day composites, keeping only pixels with good or marginal quality.</td></tr>
       <tr><td>Cropland</td><td>Share of each MODIS pixel mapped as cropland by ESA WorldCover 2021.</td></tr>
     </table>
     <h3>Data</h3>
