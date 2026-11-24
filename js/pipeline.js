@@ -5,7 +5,8 @@ import { DEFAULTS, modisGrid, seasonOf, expectedComposites, screenNdvi, seasonMe
          zClasses, meanSd, pearson, percentile, tempSeason, indexPower, ringAreaKm2, seasonWindow,
          seasonMonths, rainCells, cellMean, rainSeason } from './engine.js';
 
-export const VERSION = '1.0.0';
+import { VERSION } from './version.js';
+export { VERSION };
 export const MAX_KM2 = 2500;
 const COLL = 'modis-13Q1-061', MAX_ITEMS = 8000;
 // Terra (MOD13Q1) is the default; Aqua (MYD13Q1) is available as an independent check (its composites start 8 days later)

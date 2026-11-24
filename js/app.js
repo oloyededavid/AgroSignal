@@ -6,6 +6,8 @@ const fmt = (v, d = 2) => ok(v) ? new Intl.NumberFormat('en-GB', { minimumFracti
 const sgn = (v, d = 2) => ok(v) ? (v > 0 ? '+' : v < 0 ? '−' : '') + fmt(Math.abs(v), d) : '–';
 const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 const LAST_DAY = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];   // February ends on the 28th in every year (see About)
+import { VERSION } from './version.js';
+document.querySelectorAll('[data-ver]').forEach(e => { e.textContent = VERSION; });
 const LIMIT_KM2 = 2500, NOMINATIM = 'https://nominatim.openstreetmap.org', R_SINU = 6371007.181;
 
 // ---------------------------------------------------------------- worker
@@ -18,6 +20,10 @@ worker.onmessage = ({ data }) => {
   pending.delete(data.id);
   data.type === 'error' ? p.reject(new Error(data.message)) : p.resolve(data);
 };
+worker.onerror = e => {   // the worker script itself failed to load or crashed: fail every waiting request with a message
+  const err = new Error(`The analysis engine stopped (${e.message || 'script error'}). Reload the page and try again.`);
+  for (const [id, p] of pending) { pending.delete(id); p.reject(err); }
+};
 const ask = (cmd, payload = {}, onProgress) => new Promise((resolve, reject) => {
   const id = ++seq; pending.set(id, { resolve, reject, onProgress }); worker.postMessage({ cmd, id, ...payload });
 });
@@ -25,6 +31,11 @@ const ask = (cmd, payload = {}, onProgress) => new Promise((resolve, reject) => 
 // ---------------------------------------------------------------- map
 const map = new maplibregl.Map({ container: 'map', style: 'https://tiles.openfreemap.org/styles/positron', center: [8, 10], zoom: 3,
   attributionControl: false, preserveDrawingBuffer: true });
+// if the basemap style cannot be fetched (host down, blocked network) fall back to a plain background so the tool still works
+const FALLBACK_STYLE = { version: 8, sources: {}, layers: [{ id: 'background', type: 'background', paint: { 'background-color': '#e9ecef' } }] };
+let styleFallback = false;
+map.on('error', e => { if (styleFallback || map.isStyleLoaded() || (e && e.sourceId)) return; styleFallback = true; $('mapnote').hidden = false; map.setStyle(FALLBACK_STYLE); });
+function showLegend() { const L = $('legend'); L.hidden = false; if (!L.dataset.init) { L.dataset.init = '1'; L.open = !window.matchMedia('(max-width: 860px)').matches; } return $('legend-body'); }
 map.addControl(new maplibregl.AttributionControl({ compact: true }), 'bottom-right');
 map.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'bottom-right');
 map.addControl(new maplibregl.ScaleControl({ unit: 'metric' }), 'bottom-right');
@@ -73,15 +84,19 @@ async function setAoi(b, label) {
   const shift = Math.round(((b[0] + b[2]) / 2) / 360) * 360;
   b = [b[0] - shift, Math.max(-60, b[1]), b[2] - shift, Math.min(80, b[3])];
   const crosses = b[0] < -180 || b[2] > 180;
-  const area = boxKm2(b), good = !crosses && area <= LIMIT_KM2 && area >= 1;
+  const area = boxKm2(b);
+  const problem = crosses ? 'The box crosses the 180° meridian; draw it on one side'
+    : area > LIMIT_KM2 ? `${fmt(area, 0)} km² is larger than the ${fmt(LIMIT_KM2, 0)} km² limit; draw a smaller box`
+    : area < 1 ? `${fmt(area, 2)} km² is smaller than the 1 km² minimum (about 19 MODIS pixels); draw a larger box` : '';
+  const good = !problem;
   S.aoi = { bbox: b, ring: ringOf(b), area, label, ok: good };
   await ready;
   map.getSource('aoi').setData({ type: 'Feature', properties: {}, geometry: { type: 'Polygon', coordinates: [S.aoi.ring] } });
   const c = $('chosen'); c.hidden = false;
-  summary(0, `${label}, ${fmt(area, 0)} km²`);
+  summary(0, `${label}, ${fmt(area, area < 10 ? 2 : 0)} km²`);
   if (!S.running && S.result) clearResult();
-  c.innerHTML = `<span>${esc(label)}</span><span class="num${good ? '' : ' warn'}">${fmt(area, 0)} km²</span>` +
-    (good ? '' : `<span class="warn">${crosses ? 'Crosses the 180° meridian; draw it on one side' : area > LIMIT_KM2 ? 'Too large' : 'Too small'}</span>`);
+  c.innerHTML = `<span>${esc(label)}</span><span class="num${good ? '' : ' warn'}">${fmt(area, area < 10 ? 2 : 0)} km²</span>` +
+    (good ? '' : `<span class="warn">${esc(problem)}</span>`);
   updateNext();
 }
 const fit = b => map.fitBounds([[b[0], b[1]], [b[2], b[3]]], { padding: { top: 60, bottom: 40, left: 40, right: 40 }, duration: 800 });
@@ -100,7 +115,10 @@ map.on('mousemove', drag); map.on('touchmove', drag);
 const finish = e => {
   if (!drawing || !start) return;
   const b = boxFrom(e); start = null; setDraw(false);
-  if (b[2] - b[0] < 1e-3 || b[3] - b[1] < 1e-3) return;
+  if (b[2] - b[0] < 1e-3 || b[3] - b[1] < 1e-3) {   // a click or a line, not a box
+    map.getSource('aoi').setData(S.aoi ? { type: 'Feature', properties: {}, geometry: { type: 'Polygon', coordinates: [S.aoi.ring] } } : { type: 'FeatureCollection', features: [] });
+    const c = $('chosen'); c.hidden = false; c.innerHTML = '<span class="warn">That box has no area. Press Draw a box, then drag across the map.</span>'; return;
+  }
   setAoi(b, 'Drawn box');
 };
 map.on('mouseup', finish); map.on('touchend', finish);
@@ -110,7 +128,7 @@ $('search').addEventListener('submit', async ev => {
   const q = $('q').value.trim(); if (!q) return;
   const ul = $('results'); ul.hidden = false; ul.innerHTML = '<li class="small" style="padding:8px 10px">Searching…</li>';
   try {
-    const r = await fetch(`${NOMINATIM}/search?format=jsonv2&limit=6&q=${encodeURIComponent(q)}`, { headers: { 'Accept-Language': 'en' } });
+    const r = await fetch(`${NOMINATIM}/search?format=jsonv2&limit=6&q=${encodeURIComponent(q)}`, { headers: { 'Accept-Language': 'en' }, signal: AbortSignal.timeout(15000) });
     if (!r.ok) throw new Error(`search failed (${r.status})`);
     const list = await r.json();
     ul.innerHTML = list.length ? '' : '<li class="small" style="padding:8px 10px">No place found.</li>';
@@ -247,8 +265,7 @@ function paint() {
   map.getSource('ras').updateImage({ url: c.toDataURL(), coordinates: [[w0, n0], [e0, n0], [e0, s0], [w0, s0]] });
   map.setLayoutProperty('ras', 'visibility', 'visible');
   const grad = `linear-gradient(90deg, ${L.ramp.join(', ')})`;
-  $('legend').hidden = false;
-  $('legend').innerHTML = `<strong>${L.name}</strong><div class="ramp" style="background:${grad}"></div>
+  showLegend().innerHTML = `<strong>${L.name}</strong><div class="ramp" style="background:${grad}"></div>
     <div class="ends"><span>${L.ends[0]}</span><span>${L.ends[1]}</span><span>${L.ends[2]}</span></div>
     <div class="small" style="margin-top:4px">${esc(L.unit)}</div>${L.all ? '' : `<div class="small muted">${r.meta.cropOnly ? 'Cropland pixels only' : 'All pixels in the area'}</div>`}`;
 }
@@ -275,7 +292,7 @@ const BLANK = { figs: $('figs').innerHTML, panes: Object.fromEntries([...documen
 function clearResult() {
   S.result = null; tip.hidden = true;
   if (map.getLayer('ras')) map.setLayoutProperty('ras', 'visibility', 'none');
-  $('legend').hidden = true; $('layer-list').hidden = true;
+  $('legend').hidden = true; $('layer-list').hidden = true; syncExports();
   $('figs').classList.add('empty'); $('figs').innerHTML = BLANK.figs;
   document.querySelectorAll('[data-tabpane]').forEach(p => { p.innerHTML = BLANK.panes[p.dataset.tabpane]; delete p.dataset.fresh; });
   $('r-title').textContent = 'Season greenness against a baseline';
@@ -286,8 +303,15 @@ function seasonLabel(m) {
   const a = +m.season.start.slice(0, 2), b = +m.season.end.slice(0, 2);
   return `${MONTHS[a - 1].slice(0, 3)}–${MONTHS[b - 1].slice(0, 3)} ${m.year}${b < a ? `/${String(m.year + 1).slice(2)}` : ''}`;
 }
+// Download items are disabled until a result exists
+function syncExports() {
+  const has = !!S.result;
+  document.querySelectorAll('[data-x]').forEach(b => { b.disabled = !has; });
+  $('dl-note').hidden = has;
+}
 function showResult(r) {
   const s = r.summary, t = s.target, cl = s.climate, m = r.meta;
+  syncExports();
   $('layer-list').hidden = false;
   paint();
   const word = !ok(s.regionalZ) ? 'compared with' : s.regionalZ >= 1.5 ? 'much greener than' : s.regionalZ >= 0.5 ? 'greener than' : s.regionalZ > -0.5 ? 'close to' : s.regionalZ > -1.5 ? 'browner than' : 'much browner than';
@@ -509,11 +533,17 @@ async function printReport() {
 }
 
 // ---------------------------------------------------------------- about
-$('dl-menu').addEventListener('toggle', () => { if ($('dl-menu').open && !S.result) { $('dl-menu').open = false; $('r-sub').textContent = 'Run an analysis first; downloads are made from the result.'; } });
 document.querySelectorAll('[data-x]').forEach(b => b.addEventListener('click', () => { $('dl-menu').open = false; }));
 document.addEventListener('click', e => { if ($('dl-menu').open && !$('dl-menu').contains(e.target)) $('dl-menu').open = false; });
-$('about-open').addEventListener('click', () => { $('about').hidden = false; $('about-close').focus(); });
-$('about-close').addEventListener('click', () => { $('about').hidden = true; $('about-open').focus(); });
-$('about').addEventListener('click', e => { if (e.target === $('about')) $('about').hidden = true; });
-document.addEventListener('keydown', e => { if (e.key === 'Escape') { $('about').hidden = true; $('dl-menu').open = false; if (drawing) setDraw(false); } });
+const aboutOpen = () => { $('about').hidden = false; $('about-close').focus(); }, aboutClose = () => { $('about').hidden = true; $('about-open').focus(); };
+$('about-open').addEventListener('click', aboutOpen);
+$('about-close').addEventListener('click', aboutClose);
+$('about').addEventListener('click', e => { if (e.target === $('about')) aboutClose(); });
+$('about').addEventListener('keydown', e => {   // keep Tab inside the open dialog
+  if (e.key !== 'Tab') return;
+  const f = [...$('about').querySelectorAll('a[href], button:not([disabled])')], first = f[0], last = f[f.length - 1];
+  if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); } else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { if (!$('about').hidden) aboutClose(); $('dl-menu').open = false; if (drawing) setDraw(false); } });
+syncExports();
 go(0);
