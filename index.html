@@ -46,7 +46,7 @@
           <ul id="results" class="list" hidden></ul>
           <div class="row" style="margin-top:8px">
             <button class="rb" id="draw" type="button" aria-pressed="false">Draw a box</button>
-            <button class="rb" id="example" type="button">Run the Kano example</button>
+            <button class="rb" id="example" type="button" aria-label="Run the Kano example" title="Run the Kano example">Example</button>
           </div>
           <div class="chosen" id="chosen" hidden></div>
           <p class="small" style="margin:10px 0 0">Up to 2,500 km², anywhere on land.</p>
@@ -73,6 +73,7 @@
             <p class="small" style="margin:0">Run both to check that a result does not depend on one satellite's orbit.</p>
           </details>
           <p class="small warn" id="season-msg" hidden></p>
+          <p class="small warn" id="archive-msg" role="status" hidden></p>
           <button class="rb go wide" id="run" type="button" disabled>Run analysis</button>
           <p class="hint" id="hint-1">Choose an area and a valid season and baseline first.</p>
         </div>

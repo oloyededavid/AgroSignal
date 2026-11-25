@@ -36,3 +36,16 @@ Version 1.0.0, tested on 23 November 2026. Each row names the evidence file in `
 | 11 | Kano example in headless Chromium, live archive | regional z and headline as before | z +2.97 (the test report's 2.83 of 23 November came from an earlier state of the live archive; code unchanged), "much greener than usual", drift caution shown | Pass | journey script |
 | 12 | Link to the analysis opened in a new page | same figures | 0.525, +2.97, 20 of 20, +2 % | Pass | journey script |
 | 13 | axe before and after a run; phone 390 px | 0 violations; purpose first; no overflow | 0; title 83 px, steps 754 px; 0 px | Pass | journey script |
+
+### 1.1.1 (after the independent review)
+
+| # | Check | Expected | Result | Status |
+|---|---|---|---|---|
+| 14 | Fixed-input Kano test after the 1.1.1 changes | all 10 values and both grid hashes unchanged | identical | Pass |
+| 15 | Season 2025 at Kano, checked before a run | warning that the archive has too few composites | "3 of about 10 composites … fewer than the 5 a run needs" | Pass |
+| 16 | Season 2024 at Kano | no warning | none | Pass |
+| 17 | Shared link with `year=2027` | message, nothing run | "asks for season year 2027, which this page does not offer, so nothing was run" | Pass |
+
+Planetary Computer was queried directly on 25 November 2026: at the Kano box, MOD13Q1 and MYD13Q1 both have no composites from July to October 2025 (Terra 15 and Aqua 14 composites for the whole of 2025, against 23 to 24 in 2023 and 2024). The gap is in the archive, not in one sensor, so the page checks the archive for the chosen season and place instead of disabling a year.
+
+Changes in 1.1.1: the archive check above; shares below 1% in the Reading keep one decimal, so it agrees with the Pixels tab; the rainfall correlation is described as weak, moderate or strong; a shared link with values the page does not offer, or an area outside the limits, says so and runs nothing; the side-panel example button reads "Example". The analysis is unchanged; the engine's messages for an empty search and a season gap are clearer.

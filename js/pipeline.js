@@ -76,6 +76,7 @@ export async function runAnalysis({ aoi, season, year, baseline, cropOnly = true
   const pad2 = 2 * 864e5;
   const items = (await stacSearch({ collections: [COLL], bbox, datetime: `${new Date(first - pad2).toISOString()}/${new Date(+last + pad2).toISOString()}` }, { signal, maxItems: MAX_ITEMS }))
     .filter(it => it.id.startsWith(SEN.prefix));
+  if (!items.length) throw new Error('The archive has no MODIS composites for this area. MOD13Q1 is a land product, so open sea has none');
   if (items.length >= MAX_ITEMS) step(`The archive search stopped at ${MAX_ITEMS} items; some seasons may be missing (see the missing years)`);
   const byDate = new Map();
   for (const it of items) {
@@ -90,7 +91,7 @@ export async function runAnalysis({ aoi, season, year, baseline, cropOnly = true
   const missingYears = []; for (let y = b0; y <= b1; y++) if (!years.includes(y)) missingYears.push(y);
   const nTarget = comps.filter(c => c.seasonYear === year).length;
   if (nTarget < Math.ceil(expected[year] * p.minSeasonShare))
-    throw new Error(`Only ${nTarget} of the ${expected[year]} MODIS composites for the ${year} season are in the archive; at least ${Math.ceil(expected[year] * p.minSeasonShare)} are needed`);
+    throw new Error(`Only ${nTarget} of the ${expected[year]} MODIS composites for the ${year} season are in the archive; at least ${Math.ceil(expected[year] * p.minSeasonShare)} are needed. The archive has a gap for this season here: choose another year`);
   step(`${comps.length} ${SEN.name} composites: ${years.length - 1} baseline seasons and the ${year} season (${expected[year]} composites per season)`);
 
   // read NDVI and reliability for every composite

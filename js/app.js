@@ -8,7 +8,7 @@ const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 
 const LAST_DAY = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];   // February ends on the 28th in every year (see About)
 import { VERSION } from './version.js';
 document.querySelectorAll('[data-ver]').forEach(e => { e.textContent = VERSION; });
-const LIMIT_KM2 = 2500, NOMINATIM = 'https://nominatim.openstreetmap.org', R_SINU = 6371007.181;
+const PC = 'https://planetarycomputer.microsoft.com/api', LIMIT_KM2 = 2500, NOMINATIM = 'https://nominatim.openstreetmap.org', R_SINU = 6371007.181;
 
 // ---------------------------------------------------------------- worker
 const worker = new Worker(new URL('./worker.js', import.meta.url), { type: 'module' });
@@ -91,7 +91,7 @@ async function setAoi(b, label, note) {
     : area > LIMIT_KM2 ? `${fmt(area, 0)} km² is larger than the ${fmt(LIMIT_KM2, 0)} km² limit; draw a smaller box`
     : area < 1 ? `${fmt(area, 2)} km² is smaller than the 1 km² minimum (about 19 MODIS pixels); draw a larger box` : '';
   const good = !problem;
-  S.aoi = { bbox: b, ring: ringOf(b), area, label, ok: good };
+  S.aoi = { bbox: b, ring: ringOf(b), area, label, ok: good }; checkArchive();
   await ready;
   map.getSource('aoi').setData({ type: 'Feature', properties: {}, geometry: { type: 'Polygon', coordinates: [S.aoi.ring] } });
   const c = $('chosen'); c.hidden = false;
@@ -182,9 +182,32 @@ function seasonProblem() {
   if (new Date(Date.UTC(b1 + (a.crosses ? 1 : 0), +$('m1').value, 1)) > now) return 'The last baseline season has not finished yet.';
   return '';
 }
+// a quick look at the archive before a run: some seasons have gaps (July to October 2025 had none at the places checked)
+let archSeq = 0, archTimer = null;
+function checkArchive() {
+  clearTimeout(archTimer); const mine = ++archSeq; $('archive-msg').hidden = true;
+  if (!S.aoi || !S.aoi.ok || seasonProblem()) return;
+  archTimer = setTimeout(async () => {
+    const a = seasonArgs(), m1 = +$('m1').value, endY = a.year + (a.crosses ? 1 : 0);
+    const t0 = `${a.year}-${a.season.start}T00:00:00Z`, t1 = `${endY}-${a.season.end}T23:59:59Z`;
+    const pre = $('sensor').value === 'aqua' ? 'MYD13Q1.' : 'MOD13Q1.', days = (Date.parse(t1) - Date.parse(t0)) / 864e5;
+    const expected = Math.max(1, Math.round(days / 16)), need = Math.ceil(expected * 0.5);
+    try {
+      const r = await fetch(`${PC}/stac/v1/search`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, signal: AbortSignal.timeout(15000),
+        body: JSON.stringify({ collections: ['modis-13Q1-061'], bbox: S.aoi.bbox, datetime: `${t0}/${t1}`, limit: 200 }) });
+      if (!r.ok || mine !== archSeq) return;
+      const f = (await r.json()).features || [], dates = new Set(f.filter(x => x.id.startsWith(pre)).map(x => x.properties.start_datetime.slice(0, 10)));
+      if (mine !== archSeq || dates.size >= need) return;
+      $('archive-msg').textContent = f.length === 0
+        ? 'The archive has no MODIS composites for this area and season. MOD13Q1 is a land product, so open sea has none; if this is land, the archive has a gap: choose another year.'
+        : `The archive has ${dates.size} of about ${expected} composites for this season here, fewer than the ${need} a run needs, so the run would stop. Choose another year.`;
+      $('archive-msg').hidden = false;
+    } catch (e) { /* the check is advisory; the run reports the same problem */ }
+  }, 400);
+}
 function checkSeason() {
   if (!S.running && S.result) clearResult();
-  const p = seasonProblem(), a = seasonArgs(); $('season-msg').hidden = !p; $('season-msg').textContent = p;
+  const p = seasonProblem(), a = seasonArgs(); $('season-msg').hidden = !p; $('season-msg').textContent = p; checkArchive();
   summary(1, `${MONTHS[+$('m0').value - 1].slice(0, 3)}–${MONTHS[+$('m1').value - 1].slice(0, 3)} ${a.year}, baseline ${a.baseline[0]}–${a.baseline[1]}`);
   updateNext();
 }
@@ -340,15 +363,18 @@ function showResult(r) {
 }
 // a reading of the result from computed values only; the drift caution appears whenever a target season is compared
 // with a baseline that does not share the satellite's recent orbit
+// shares below 1% keep one decimal (or read "under 0.1%"), so the Reading agrees with the Pixels tab
+const strength = r => { const a = Math.abs(r); return a < 0.3 ? 'a weak association' : a < 0.6 ? 'a moderate association' : 'a strong association'; };
+const share = v => v === 0 ? '0%' : v < 0.001 ? 'under 0.1%' : v < 0.01 ? `${fmt(v * 100, 1)}%` : `${fmt(v * 100, 0)}%`;
 function reading(r) {
   const s = r.summary, t = s.target, cl = s.climate, m = r.meta, z = s.regionalZ;
   const word = !ok(z) ? 'compared with' : z >= 1.5 ? 'much greener than' : z >= 0.5 ? 'greener than' : z > -0.5 ? 'close to' : z > -1.5 ? 'browner than' : 'much browner than';
-  $('rd-main').innerHTML = `Over ${s.pixelsAnalysed.toLocaleString('en-GB')} ${m.cropOnly ? 'cropland ' : ''}pixels, ${seasonLabel(m)} was <span class="k">${word} the ${m.baseline[0]}–${m.baseline[1]} average</span>: mean NDVI ${fmt(t.ndvi, 3)} against ${fmt(s.baseline.ndviMean, 3)} (regional z ${sgn(z)}), higher than ${t.rankBelow} of ${t.baselineSeasons} baseline seasons. ${ok(s.zClasses && s.zClasses.share[4]) ? `${fmt(s.zClasses.share[4] * 100, 0)}% of the pixels were much greener than their own baseline and ${fmt(s.zClasses.share[0] * 100, 0)}% much browner.` : ''}`;
+  $('rd-main').innerHTML = `Over ${s.pixelsAnalysed.toLocaleString('en-GB')} ${m.cropOnly ? 'cropland ' : ''}pixels, ${seasonLabel(m)} was <span class="k">${word} the ${m.baseline[0]}–${m.baseline[1]} average</span>: mean NDVI ${fmt(t.ndvi, 3)} against ${fmt(s.baseline.ndviMean, 3)} (regional z ${sgn(z)}), higher than ${t.rankBelow} of ${t.baselineSeasons} baseline seasons. ${ok(s.zClasses && s.zClasses.share[4]) ? `${share(s.zClasses.share[4])} of the pixels were much greener than their own baseline and ${share(s.zClasses.share[0])} much browner.` : ''}`;
   let rain = '';
   if (ok(cl.rain)) {
     const rz = ok(cl.rainSd) && cl.rainSd > 0 ? (cl.rain - cl.rainMean) / cl.rainSd : NaN;
     rain = `Season rainfall was ${fmt(cl.rain, 0)} mm against a baseline average of ${fmt(cl.rainMean, 0)} mm (${sgn(cl.rainPct, 0)}%)${ok(rz) ? `, ${Math.abs(rz) < 0.5 ? 'close to the usual range' : Math.abs(rz) < 1.5 ? (rz > 0 ? 'wetter than usual' : 'drier than usual') : (rz > 0 ? 'much wetter than usual' : 'much drier than usual')}` : ''} (CHIRPS, a satellite and station estimate).`;
-    if (s.association && ok(s.association.ndviRainR)) rain += ` Across the baseline seasons, greenness and rainfall correlate at r = ${fmt(s.association.ndviRainR, 2)}; that describes how they moved together in the past, not what caused this season.`;
+    if (s.association && ok(s.association.ndviRainR)) rain += ` Across the baseline seasons, greenness and rainfall correlate at r = ${fmt(s.association.ndviRainR, 2)} (${strength(s.association.ndviRainR)}); that describes how they moved together in the past, not what caused this season.`;
   } else rain = cl.rainNote ? `Rainfall: ${esc(cl.rainNote)}.` : 'Rainfall is not available for this area.';
   $('rd-detail').innerHTML = rain;
   const drift = /terra/i.test(m.sensor) ? 2020 : 2021, recent = m.year > drift && m.baseline[1] <= drift;
@@ -610,9 +636,14 @@ document.querySelectorAll('[data-start]').forEach(b => b.addEventListener('click
 // opening a shared link: the same area, season, baseline and satellite, then the analysis runs again
 (async () => {
   const q = new URLSearchParams(location.search); if (!q.get('bbox')) return;
-  const b = q.get('bbox').split(',').map(Number); if (b.length !== 4 || b.some(v => !(v === v))) return;
+  const b = q.get('bbox').split(',').map(Number);
+  if (b.length !== 4 || b.some(v => !Number.isFinite(v))) { status('The shared link has an area this page cannot read, so nothing was run. Choose an area on the map.', 'err'); return; }
   await setAoi(b, q.get('label') || 'Shared area'); fit(b);
-  for (const k of ['m0', 'm1', 'year', 'b0', 'b1', 'sensor']) if (q.get(k) != null && $(k).querySelector(`option[value="${q.get(k)}"]`)) $(k).value = q.get(k);
+  const NAMES = { m0: 'start month', m1: 'end month', year: 'season year', b0: 'baseline start', b1: 'baseline end', sensor: 'sensor' }, bad = [];
+  for (const k of Object.keys(NAMES)) if (q.get(k) != null) { if ($(k).querySelector(`option[value="${CSS.escape(q.get(k))}"]`)) $(k).value = q.get(k); else bad.push(`${NAMES[k]} ${q.get(k)}`); }
   $('crop').checked = q.get('crop') !== '0';
-  checkSeason(); go(1); if (!$('run').disabled) runNow();
+  checkSeason(); go(1);
+  if (bad.length) { status(`The shared link asks for ${bad.join(', ')}, which this page does not offer, so nothing was run. Check the settings and press Run.`, 'err'); return; }
+  if (!S.aoi.ok) { status('The shared link\'s area is outside the limits (see the area message), so nothing was run.', 'err'); go(0); return; }
+  if (!$('run').disabled) runNow(); else status(`The shared link's settings cannot be run: ${seasonProblem() || 'check the settings'}`, 'err');
 })();
