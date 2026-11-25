@@ -1,0 +1,12 @@
+{
+ "composites": 33,
+ "pixelsAnalysed": 324,
+ "ndvi": 0.590764,
+ "regionalZ": 1.062842,
+ "baselineMean": 0.56,
+ "rankBelow": 8,
+ "rain": 390.8,
+ "rainMean": 421.06,
+ "zHash": "d7a3eba6f200a9c9de67b6591fe1b79d9726703072e8bd940dd020780a5888df",
+ "anomHash": "0152738f39f3d35ab87031bfec6478b21415668db4cd7ab3505f399df1501eaf"
+}

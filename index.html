@@ -20,9 +20,16 @@
 </head>
 <body>
 <header class="topbar">
-  <a class="back" href="https://oloyededavid.github.io/geospatial-rs-portfolio/#studies"><span aria-hidden="true">&larr;</span> Back to portfolio</a>
+  <a class="back" href="https://oloyededavid.github.io/geospatial-rs-portfolio/#tools"><span aria-hidden="true">&larr;</span> Back to portfolio</a>
   <span class="tb-title">AgroSignal</span>
   <span class="ver">v<span data-ver></span></span>
+  <details class="menu tools-menu"><summary class="hb">Tools</summary><div class="menu-list">
+    <a href="https://oloyededavid.github.io/FloodScope/">FloodScope<span>Flood extent and exposure from Sentinel-1 radar</span></a>
+    <a href="https://oloyededavid.github.io/AgroSignal/" aria-current="page">AgroSignal<span>Season greenness against a baseline, with rainfall</span></a>
+    <a href="https://oloyededavid.github.io/GeoValidate/">GeoValidate<span>Random against spatial validation of a classifier</span></a>
+    <a href="https://oloyededavid.github.io/geospatial-rs-portfolio/twin/">City Twins<span>A city's climate and size twin in another country</span></a>
+    <div class="menu-foot"><a href="https://oloyededavid.github.io/geospatial-rs-portfolio/#tools">All tools and studies<span>The research portfolio</span></a></div>
+  </div></details>
   <button class="hb" id="about-open" type="button" aria-haspopup="dialog">About and method</button>
 </header>
 <div class="app">
@@ -39,11 +46,12 @@
           <ul id="results" class="list" hidden></ul>
           <div class="row" style="margin-top:8px">
             <button class="rb" id="draw" type="button" aria-pressed="false">Draw a box</button>
-            <button class="rb" id="example" type="button">Kano example</button>
+            <button class="rb" id="example" type="button">Run the Kano example</button>
           </div>
           <div class="chosen" id="chosen" hidden></div>
           <p class="small" style="margin:10px 0 0">Up to 2,500 km², anywhere on land.</p>
           <button class="rb go wide" id="next-0" type="button" disabled>Continue</button>
+          <p class="hint" id="hint-0">Search a place or draw a box within the limit above to continue.</p>
         </div>
       </section>
       <section class="step locked" data-step="1">
@@ -66,6 +74,7 @@
           </details>
           <p class="small warn" id="season-msg" hidden></p>
           <button class="rb go wide" id="run" type="button" disabled>Run analysis</button>
+          <p class="hint" id="hint-1">Choose an area and a valid season and baseline first.</p>
         </div>
       </section>
     </div>
@@ -92,17 +101,44 @@
           <button type="button" disabled data-x="json">Processing record<span>JSON</span></button>
           <button type="button" disabled data-x="png">Map image<span>PNG</span></button>
           <button type="button" disabled data-x="print">Report<span>Print or save as PDF</span></button>
+          <button type="button" disabled data-x="link">Link to this analysis<span>Area, season, baseline and satellite; opening it runs the analysis again</span></button>
         </div>
       </details>
     </header>
 
-    <section class="kpis empty" id="figs" aria-label="Key figures">
+    <section class="intro" id="intro" aria-labelledby="intro-h">
+      <h2 id="intro-h">What AgroSignal does</h2>
+      <p class="lead">Was this growing season greener or browner than usual, and was it wetter or drier? AgroSignal compares the season's vegetation greenness (MODIS NDVI) over cropland with the same months in a baseline of earlier years, pixel by pixel, and sets the season's rainfall beside it. It measures greenness, not yield.</p>
+      <ul>
+        <li>Maps of how unusual the season is (z-score, anomaly, condition index)</li>
+        <li>Every baseline season against this one, with rainfall and temperature</li>
+        <li>The season's curve, composite by composite, and the share of unusual pixels</li>
+        <li>Downloads: GeoTIFF, yearly and pixel tables, a processing record, a map image and a report</li>
+      </ul>
+      <div class="start">
+        <button class="hb go" type="button" data-start="demo">Run the Kano example (Nigeria, June–October 2026)</button>
+        <button class="hb" type="button" data-start="area">Choose my own area</button>
+        <span class="small">An analysis reads about 190 satellite composites and takes about a minute.</span>
+      </div>
+    </section>
+    <section class="kpis empty" id="figs" aria-label="Key figures" hidden>
       <div class="kpi"><div class="l">Season NDVI</div><div class="v">–</div><div class="d">regional mean over cropland</div></div>
       <div class="kpi"><div class="l">Regional z-score</div><div class="v">–</div><div class="d">against the baseline seasons</div></div>
       <div class="kpi"><div class="l">Rank</div><div class="v">–</div><div class="d">baseline seasons below this one</div></div>
       <div class="kpi"><div class="l">Rainfall</div><div class="v">–</div><div class="d">CHIRPS, against the baseline mean</div></div>
     </section>
 
+    <section class="reading" id="reading" hidden aria-labelledby="reading-h">
+      <h2 id="reading-h">Reading</h2>
+      <div class="r-a">
+      <p id="rd-main"></p>
+      <p id="rd-detail"></p>
+      </div>
+      <div class="r-b">
+      <p class="caution" id="rd-caution" hidden></p>
+      <p class="limit" id="rd-limit"><b>What this does not show:</b> NDVI measures greenness, not yield; a green season can still give a poor harvest, and weeds or fallow regrowth also raise NDVI. The rainfall comparison is an association, not a cause.</p>
+      </div>
+    </section>
     <div class="body">
       <div class="mapwrap">
         <div id="map" role="region" aria-label="Crop season map"></div>
@@ -126,10 +162,10 @@
         <div class="tabpane" data-tabpane="run" hidden><p class="empty-state">Run details appear after a run.</p></div>
       </section>
     </div>
+    <div class="tip" id="tip" hidden></div>
   </main>
 </div>
 
-<div class="tip" id="tip" hidden></div>
 
 <div class="sheet" id="about" hidden role="dialog" aria-modal="true" aria-labelledby="about-h">
   <article>

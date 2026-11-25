@@ -67,6 +67,7 @@ function go(n) {
 function updateNext() {
   $('next-0').disabled = !(S.aoi && S.aoi.ok);
   $('run').disabled = S.running || !(S.aoi && S.aoi.ok) || !!seasonProblem();
+  $('hint-0').hidden = !$('next-0').disabled; $('hint-1').hidden = !$('run').disabled || !!S.running;
   document.querySelectorAll('.step').forEach(el => {
     const k = +el.dataset.step, h = el.querySelector('.step-h');
     el.classList.toggle('locked', !reach(k)); el.classList.toggle('done', k !== step && complete(k)); h.setAttribute('aria-disabled', String(!reach(k))); h.tabIndex = reach(k) ? 0 : -1;
@@ -79,7 +80,8 @@ $('run').addEventListener('click', () => runNow());
 // ---------------------------------------------------------------- area
 const ringOf = b => [[b[0], b[1]], [b[2], b[1]], [b[2], b[3]], [b[0], b[3]], [b[0], b[1]]];
 const boxKm2 = b => { const R = 6371.0088, r = Math.PI / 180; return R * R * Math.abs((b[2] - b[0]) * r) * Math.abs(Math.sin(b[3] * r) - Math.sin(b[1] * r)); };
-async function setAoi(b, label) {
+async function setAoi(b, label, note) {
+  S.example = false;
   // the map repeats the world sideways: bring the box back to -180..180; a box across the 180° meridian is not supported
   const shift = Math.round(((b[0] + b[2]) / 2) / 360) * 360;
   b = [b[0] - shift, Math.max(-60, b[1]), b[2] - shift, Math.min(80, b[3])];
@@ -95,7 +97,7 @@ async function setAoi(b, label) {
   const c = $('chosen'); c.hidden = false;
   summary(0, `${label}, ${fmt(area, area < 10 ? 2 : 0)} km²`);
   if (!S.running && S.result) clearResult();
-  c.innerHTML = `<span>${esc(label)}</span><span class="num${good ? '' : ' warn'}">${fmt(area, area < 10 ? 2 : 0)} km²</span>` +
+  c.innerHTML = `<span>${esc(label)}</span><span class="num${good ? '' : ' warn'}">${fmt(area, area < 10 ? 2 : 0)} km²</span>${note ? `<span class="small">${esc(note)}</span>` : ''}` +
     (good ? '' : `<span class="warn">${esc(problem)}</span>`);
   updateNext();
 }
@@ -139,8 +141,9 @@ $('search').addEventListener('submit', async ev => {
       b.onclick = () => {
         ul.hidden = true;
         const lat = +p.lat, lon = +p.lon, k = 0.15 / Math.cos(lat * Math.PI / 180);   // about 33 x 33 km around the place
-        const box = [lon - k, lat - 0.15, lon + k, lat + 0.15];
-        setAoi(box, p.name || p.display_name.split(',')[0]); fit(box);
+        const box = [lon - k, lat - 0.15, lon + k, lat + 0.15], name = p.name || p.display_name.split(',')[0];
+        const wide = ['country', 'state', 'region', 'province', 'county', 'administrative'].includes(p.addresstype || p.type);
+        setAoi(box, `33 × 33 km around ${name}`, wide ? `A box around the centre point of ${name}, not the whole ${p.addresstype || 'area'}. Draw a box to choose the farmland you need.` : 'A box around the place\'s centre point. Draw a box to choose the area yourself.'); fit(box);
       };
       li.append(b); ul.append(li);
     }
@@ -151,7 +154,8 @@ $('example').addEventListener('click', async () => {
   const b = [8.0, 12.0, 8.4, 12.4];
   await setAoi(b, 'Farmland around Bagwai, Kano State, Nigeria'); fit(b);
   $('m0').value = '6'; $('m1').value = '10'; $('year').value = '2026'; $('b0').value = '2001'; $('b1').value = '2020';
-  checkSeason(); go(1);
+  checkSeason(); go(1); S.example = true;
+  runNow();
 });
 
 // ---------------------------------------------------------------- season
@@ -199,6 +203,7 @@ async function runNow() {
   if (!S.aoi || seasonProblem()) return;
   const mine = ++runSeq, a = seasonArgs();
   S.running = true; clearResult(); updateNext(); logEl.innerHTML = ''; status('Starting', '', 2);
+  document.querySelectorAll('[data-tabpane]').forEach(p => { p.innerHTML = '<p class="running">Reading the satellite archive. The figures appear when every composite has been read.</p>'; });
   const onProgress = msg => {
     if (mine !== runSeq) return;
     const m2 = msg.match(/^Read (\d+) of (\d+)/);
@@ -214,18 +219,19 @@ async function runNow() {
     if (mine !== runSeq) return;
     status(e.message, 'err');
   } finally {
-    if (mine === runSeq) { S.running = false; updateNext(); }
+    if (mine === runSeq) { S.running = false; updateNext(); if (!S.result) { $('intro').hidden = false; $('figs').hidden = true; document.querySelectorAll('[data-tabpane]').forEach(p => { p.innerHTML = BLANK.panes[p.dataset.tabpane]; }); } }
   }
 }
 
 // ---------------------------------------------------------------- map layers
-// Diverging brown (worse) – grey – green (better); sequential greens for NDVI and cropland.
-const DIV = ['#8c4a0e', '#c98a4b', '#e9d3b4', '#e4e4df', '#bcd9a8', '#6fa857', '#2c6b1e'];
+// Diverging brown (browner) – grey – teal (greener), chosen so the two sides stay apart for red–green colour-blind readers
+// (project-notes/tools/colour_check.py); sequential greens for NDVI, cropland and the condition index.
+const DIV = ['#8c510a', '#d8b365', '#f6e8c3', '#f2f2ee', '#c7eae5', '#5ab4ac', '#01665e'];
 const SEQ = ['#f2f0e6', '#d7e3b9', '#a9cb88', '#73ad5c', '#3f8a37', '#1d5e23'];
 const LAYERS = {
   z: { name: 'z-score', key: 'z', ramp: DIV, min: -2.5, max: 2.5, ends: ['−2.5', '0', '+2.5'], unit: 'SD from the baseline mean', d: 2 },
   anom: { name: 'Anomaly', key: 'anom', ramp: DIV, min: -0.15, max: 0.15, ends: ['−0.15', '0', '+0.15'], unit: 'NDVI difference', d: 3 },
-  vci: { name: 'VCI', key: 'vci', ramp: DIV, min: -50, max: 150, ends: ['≤ −50', '50', '≥ 150'], unit: '0 = baseline minimum, 100 = maximum', d: 0 },
+  vci: { name: 'VCI', key: 'vci', ramp: SEQ, min: 0, max: 100, ends: ['≤ 0', '50', '≥ 100'], unit: '0 = driest baseline season, 100 = greenest; beyond 100 is greener than any', d: 0 },
   target: { name: 'Season NDVI', key: 'target', ramp: SEQ, min: 0, max: 0.8, ends: ['0', '0.4', '0.8'], unit: 'mean NDVI', d: 3 },
   crop: { name: 'Cropland share', key: 'crop', ramp: SEQ, min: 0, max: 1, ends: ['0%', '50%', '100%'], unit: 'ESA WorldCover 2021', d: 0, pct: true, all: true },
 };
@@ -298,6 +304,7 @@ function clearResult() {
   document.querySelectorAll('[data-tabpane]').forEach(p => { p.innerHTML = BLANK.panes[p.dataset.tabpane]; delete p.dataset.fresh; });
   $('r-title').textContent = 'Season greenness against a baseline';
   $('r-sub').textContent = 'Was this growing season greener or browner than usual, and was it wetter or drier?';
+  $('reading').hidden = true; $('intro').hidden = !!S.running; $('figs').hidden = !S.running;
   updateNext();
 }
 function seasonLabel(m) {
@@ -323,12 +330,37 @@ function showResult(r) {
     ['Season NDVI', fmt(t.ndvi, 3), `baseline ${fmt(s.baseline.ndviMean, 3)} ± ${fmt(s.baseline.ndviSd, 3)}`],
     ['Regional z-score', sgn(s.regionalZ), `mean of pixel z-scores ${sgn(t.z)}`],
     ['Rank', `${t.rankBelow}<small>of ${t.baselineSeasons}</small>`, `baseline seasons below ${m.year}`],
-    ['Rainfall', ok(cl.rain) ? `${sgn(cl.rainPct, 0)}<small>%</small>` : '–', ok(cl.rain) ? `${fmt(cl.rain, 0)} mm against ${fmt(cl.rainMean, 0)} mm` : (cl.rainNote || 'unavailable')],
+    ['Rainfall<span class="tag">estimate</span>', ok(cl.rain) ? `${sgn(cl.rainPct, 0)}<small>%</small>` : '–', ok(cl.rain) ? `${fmt(cl.rain, 0)} mm against ${fmt(cl.rainMean, 0)} mm` : (cl.rainNote || 'unavailable')],
   ];
   $('figs').classList.remove('empty');
   $('figs').innerHTML = k.map(([l, v, d]) => `<div class="kpi"><div class="l">${l}</div><div class="v">${v}</div><div class="d" title="${esc(d)}">${esc(d)}</div></div>`).join('');
+  $('intro').hidden = true; $('figs').hidden = false; reading(r); shareUrl();
   renderYears(r); renderCurve(r); renderPixels(r); renderRun(r); updateNext();
-  if (window.innerWidth <= 860) document.querySelector('.main').scrollIntoView({ behavior: 'smooth' });
+  if (window.innerWidth <= 860) $('reading').scrollIntoView({ behavior: 'smooth' });
+}
+// a reading of the result from computed values only; the drift caution appears whenever a target season is compared
+// with a baseline that does not share the satellite's recent orbit
+function reading(r) {
+  const s = r.summary, t = s.target, cl = s.climate, m = r.meta, z = s.regionalZ;
+  const word = !ok(z) ? 'compared with' : z >= 1.5 ? 'much greener than' : z >= 0.5 ? 'greener than' : z > -0.5 ? 'close to' : z > -1.5 ? 'browner than' : 'much browner than';
+  $('rd-main').innerHTML = `Over ${s.pixelsAnalysed.toLocaleString('en-GB')} ${m.cropOnly ? 'cropland ' : ''}pixels, ${seasonLabel(m)} was <span class="k">${word} the ${m.baseline[0]}–${m.baseline[1]} average</span>: mean NDVI ${fmt(t.ndvi, 3)} against ${fmt(s.baseline.ndviMean, 3)} (regional z ${sgn(z)}), higher than ${t.rankBelow} of ${t.baselineSeasons} baseline seasons. ${ok(s.zClasses && s.zClasses.share[4]) ? `${fmt(s.zClasses.share[4] * 100, 0)}% of the pixels were much greener than their own baseline and ${fmt(s.zClasses.share[0] * 100, 0)}% much browner.` : ''}`;
+  let rain = '';
+  if (ok(cl.rain)) {
+    const rz = ok(cl.rainSd) && cl.rainSd > 0 ? (cl.rain - cl.rainMean) / cl.rainSd : NaN;
+    rain = `Season rainfall was ${fmt(cl.rain, 0)} mm against a baseline average of ${fmt(cl.rainMean, 0)} mm (${sgn(cl.rainPct, 0)}%)${ok(rz) ? `, ${Math.abs(rz) < 0.5 ? 'close to the usual range' : Math.abs(rz) < 1.5 ? (rz > 0 ? 'wetter than usual' : 'drier than usual') : (rz > 0 ? 'much wetter than usual' : 'much drier than usual')}` : ''} (CHIRPS, a satellite and station estimate).`;
+    if (s.association && ok(s.association.ndviRainR)) rain += ` Across the baseline seasons, greenness and rainfall correlate at r = ${fmt(s.association.ndviRainR, 2)}; that describes how they moved together in the past, not what caused this season.`;
+  } else rain = cl.rainNote ? `Rainfall: ${esc(cl.rainNote)}.` : 'Rainfall is not available for this area.';
+  $('rd-detail').innerHTML = rain;
+  const drift = /terra/i.test(m.sensor) ? 2020 : 2021, recent = m.year > drift && m.baseline[1] <= drift;
+  $('rd-caution').hidden = !recent;
+  if (recent) $('rd-caution').innerHTML = `<b>Compare with care:</b> ${/terra/i.test(m.sensor) ? 'Terra' : 'Aqua'}'s overpass time has drifted since ${drift}, changing sun angle and shadow, and its effect on NDVI has not been quantified here. This season is compared with a baseline that ends in ${m.baseline[1]}, so part of the difference may come from the satellite rather than the vegetation. ${/terra/i.test(m.sensor) ? 'Run the same analysis with Aqua (step 2, Satellite) to check whether it holds on the other satellite.' : 'Run it with Terra as well to check.'}`;
+  $('reading').hidden = false;
+}
+function shareUrl() {
+  const r = S.result; if (!r) return location.href;
+  const u = new URL(location.href.split('#')[0]); u.search = '';
+  const q = { bbox: S.aoi.bbox.map(v => (+v).toFixed(5)).join(','), label: S.aoi.label || '', m0: $('m0').value, m1: $('m1').value, year: $('year').value, b0: $('b0').value, b1: $('b1').value, crop: $('crop').checked ? 1 : 0, sensor: $('sensor').value };
+  Object.entries(q).forEach(([k, v]) => u.searchParams.set(k, v)); history.replaceState(null, '', u); return u.href;
 }
 function showTab(t) {
   document.querySelectorAll('.tabs button').forEach(x => { x.setAttribute('aria-selected', String(x.dataset.tab === t)); x.tabIndex = x.dataset.tab === t ? 0 : -1; });
@@ -494,6 +526,7 @@ document.querySelectorAll('[data-x]').forEach(b => b.addEventListener('click', a
   const k = b.dataset.x;
   try {
     if (k === 'png') return save(await mapPng(), `${fileBase()}_${S.layer}.png`);
+    if (k === 'link') { const u = shareUrl(); try { await navigator.clipboard.writeText(u); $('dl-note').hidden = false; $('dl-note').textContent = 'Link copied. Opening it runs the same analysis again on the archive.'; } catch { prompt('Copy this link:', u); } return; }
     if (k === 'print') return printReport();
     const ext = { geotiff: '.tif', years: '_years.csv', pixels: '_pixels.csv', json: '.json' }[k];
     b.disabled = true; const { blob } = await ask('export', { kind: k }); save(blob, fileBase() + ext);
@@ -501,16 +534,38 @@ document.querySelectorAll('[data-x]').forEach(b => b.addEventListener('click', a
   finally { b.disabled = false; }
 }));
 async function mapPng() {
+  // the exported image carries its colour scale, units, season, baseline, sources and limits
   await new Promise(r => { map.once('render', r); map.triggerRepaint(); });
-  const src = map.getCanvas(), c = document.createElement('canvas'), dpr = window.devicePixelRatio || 1, foot = 48 * dpr;
+  const src = map.getCanvas(), c = document.createElement('canvas'), dpr = src.width / src.clientWidth || 1;
+  const m = S.result.meta, L = LAYERS[S.layer], F = (px, w = 400) => `${w} ${px * dpr}px Satoshi, sans-serif`;
+  const lines = [[F(13, 500), INK, 17, `AgroSignal · ${L.name} · ${seasonLabel(m)} against ${m.baseline[0]}–${m.baseline[1]} · ${m.label || ''}`],
+    [F(10.5), '#55544e', 14, `${L.all ? 'All pixels in the area' : m.cropOnly ? 'Cropland pixels only (ESA WorldCover 2021, share ≥ 50%)' : 'All pixels in the area'}. MODIS ${m.sensor} v061, 16-day 250 m composites. AgroSignal ${m.version}.`],
+    [F(10.5), '#55544e', 14, 'Limits: NDVI measures greenness, not yield. Satellite overpass times have drifted since 2020–2021; recent seasons against older baselines need care.'],
+    [F(10.5), '#55544e', 14, 'Data: MODIS (NASA LP DAAC, via Planetary Computer); ESA WorldCover 2021. Basemap © OpenStreetMap contributors, OpenFreeMap.']];
+  const meas = c.getContext('2d'), wrapped = [];
+  for (const [font, col, lh, text] of lines) { meas.font = font; let cur = ''; for (const w of text.split(' ')) { const t = cur ? cur + ' ' + w : w; if (meas.measureText(t).width > src.width - 20 * dpr && cur) { wrapped.push([font, col, lh, cur]); cur = w; } else cur = t; } wrapped.push([font, col, lh, cur]); }
+  const foot = (14 + wrapped.reduce((n, l) => n + l[2], 0)) * dpr;
   c.width = src.width; c.height = src.height + foot;
   const ctx = c.getContext('2d'); ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, c.width, c.height); ctx.drawImage(src, 0, 0);
-  const m = S.result.meta, L = LAYERS[S.layer];
-  ctx.fillStyle = INK; ctx.font = `${13 * dpr}px Satoshi, sans-serif`;
-  ctx.fillText(`AgroSignal · ${L.name} · ${seasonLabel(m)} against ${m.baseline[0]}–${m.baseline[1]} · ${m.label || ''}`, 10 * dpr, src.height + 19 * dpr);
-  ctx.fillStyle = '#55544e'; ctx.font = `${10 * dpr}px Satoshi, sans-serif`;
-  ctx.fillText(`MODIS ${m.sensor} v061 (NASA LP DAAC, via Planetary Computer); ESA WorldCover 2021. Basemap © OpenStreetMap contributors, OpenFreeMap.`, 10 * dpr, src.height + 36 * dpr);
-  return new Promise(r => c.toBlob(r, 'image/png'));
+  // colour scale, bottom left of the map
+  const bw = 200 * dpr, bh = 62 * dpr, bx = 10 * dpr, by = src.height - bh - 10 * dpr;
+  ctx.fillStyle = 'rgba(255,255,255,.94)'; ctx.fillRect(bx, by, bw, bh); ctx.strokeStyle = '#d5d9de'; ctx.lineWidth = dpr; ctx.strokeRect(bx, by, bw, bh);
+  ctx.fillStyle = INK; ctx.font = F(11.5, 500); ctx.fillText(L.name, bx + 8 * dpr, by + 15 * dpr);
+  const g = ctx.createLinearGradient(bx + 8 * dpr, 0, bx + bw - 8 * dpr, 0); L.ramp.forEach((col, i) => g.addColorStop(i / (L.ramp.length - 1), col));
+  ctx.fillStyle = g; ctx.fillRect(bx + 8 * dpr, by + 21 * dpr, bw - 16 * dpr, 9 * dpr);
+  ctx.fillStyle = '#55544e'; ctx.font = F(10.5); ctx.textAlign = 'left'; ctx.fillText(L.ends[0], bx + 8 * dpr, by + 42 * dpr);
+  ctx.textAlign = 'center'; ctx.fillText(L.ends[1], bx + bw / 2, by + 42 * dpr); ctx.textAlign = 'right'; ctx.fillText(L.ends[2], bx + bw - 8 * dpr, by + 42 * dpr); ctx.textAlign = 'left';
+  ctx.font = F(10); ctx.fillText(L.unit.length > 46 ? L.unit.slice(0, 45) + '…' : L.unit, bx + 8 * dpr, by + 55 * dpr);
+  // scale bar, bottom right, from the map's ground resolution at its centre
+  const mpp = 40075016.686 * Math.cos(map.getCenter().lat * Math.PI / 180) / (512 * Math.pow(2, map.getZoom()));
+  const nice = [100, 200, 500, 1000, 2000, 5000, 10000, 20000, 50000, 100000], len = nice.reduce((b, v) => v <= 120 * mpp ? v : b, nice[0]);
+  const sw = len / mpp * dpr, sx = c.width - sw - 16 * dpr, sy = src.height - 18 * dpr;
+  ctx.fillStyle = 'rgba(255,255,255,.94)'; ctx.fillRect(sx - 8 * dpr, sy - 18 * dpr, sw + 16 * dpr, 26 * dpr);
+  ctx.strokeStyle = INK; ctx.lineWidth = 2 * dpr; ctx.beginPath(); ctx.moveTo(sx, sy - 4 * dpr); ctx.lineTo(sx, sy); ctx.lineTo(sx + sw, sy); ctx.lineTo(sx + sw, sy - 4 * dpr); ctx.stroke();
+  ctx.fillStyle = INK; ctx.font = F(11); ctx.textAlign = 'center'; ctx.fillText(len >= 1000 ? `${len / 1000} km` : `${len} m`, sx + sw / 2, sy - 7 * dpr); ctx.textAlign = 'left';
+  let y = src.height + 6 * dpr;
+  for (const [font, col, lh, text] of wrapped) { y += lh * dpr; ctx.font = font; ctx.fillStyle = col; ctx.fillText(text, 10 * dpr, y); }
+  return new Promise(res => c.toBlob(res, 'image/png'));
 }
 async function printReport() {
   const r = S.result, s = r.summary, m = r.meta, cl = s.climate, img = URL.createObjectURL(await mapPng());
@@ -548,3 +603,16 @@ $('about').addEventListener('keydown', e => {   // keep Tab inside the open dial
 document.addEventListener('keydown', e => { if (e.key === 'Escape') { if (!$('about').hidden) aboutClose(); $('dl-menu').open = false; if (drawing) setDraw(false); } });
 syncExports();
 go(0);
+
+document.querySelectorAll('[data-start]').forEach(b => b.addEventListener('click', () => {
+  if (b.dataset.start === 'demo') $('example').click(); else { go(0); $('q').focus(); }
+}));
+// opening a shared link: the same area, season, baseline and satellite, then the analysis runs again
+(async () => {
+  const q = new URLSearchParams(location.search); if (!q.get('bbox')) return;
+  const b = q.get('bbox').split(',').map(Number); if (b.length !== 4 || b.some(v => !(v === v))) return;
+  await setAoi(b, q.get('label') || 'Shared area'); fit(b);
+  for (const k of ['m0', 'm1', 'year', 'b0', 'b1', 'sensor']) if (q.get(k) != null && $(k).querySelector(`option[value="${q.get(k)}"]`)) $(k).value = q.get(k);
+  $('crop').checked = q.get('crop') !== '0';
+  checkSeason(); go(1); if (!$('run').disabled) runNow();
+})();

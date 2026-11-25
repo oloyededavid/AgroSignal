@@ -27,3 +27,12 @@ Version 1.0.0, tested on 23 November 2026. Each row names the evidence file in `
 - The GeoTIFF export was checked with GDAL and rasterio earlier in development; it was not re-opened after the alignment fix.
 - Seasons crossing the new year were run in the browser engine (Free State) but not compared with the Python reference, which handles seasons within one calendar year.
 - Screen readers and touch devices.
+
+## Version 1.1.0 (interface upgrade), 25 November 2026
+
+| # | Test | Expected | Result | Status | Evidence |
+|---|---|---|---|---|---|
+| 10 | `tests/fixture_kano.mjs`: whole pipeline, 4 × 4 km near Bagwai, Aug–Sep 2011 against 2001–2010, every MODIS response replayed from `tests/fixtures/kano-small/` (26 MB) | identical composites, pixels, NDVI, regional z, rank, rainfall, z and anomaly grid hashes | 10 of 10 identical, offline | Pass | test output |
+| 11 | Kano example in headless Chromium, live archive | regional z and headline as before | z +2.97 (the test report's 2.83 of 23 November came from an earlier state of the live archive; code unchanged), "much greener than usual", drift caution shown | Pass | journey script |
+| 12 | Link to the analysis opened in a new page | same figures | 0.525, +2.97, 20 of 20, +2 % | Pass | journey script |
+| 13 | axe before and after a run; phone 390 px | 0 violations; purpose first; no overflow | 0; title 83 px, steps 754 px; 0 px | Pass | journey script |

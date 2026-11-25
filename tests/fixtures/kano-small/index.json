@@ -1,0 +1,1433 @@
+{
+ "e6a6d13321be027fb7f7fbfff46e281c": {
+  "status": 200,
+  "headers": {
+   "content-type": "application/geo+json; charset=utf-8",
+   "content-length": "962856"
+  },
+  "url": "https://planetarycomputer.microsoft.com/api/stac/v1/search",
+  "bytes": 962856
+ },
+ "9f57de9508b3e94a57e790aa850a7bc1": {
+  "status": 200,
+  "headers": {
+   "content-type": "application/geo+json; charset=utf-8",
+   "content-length": "963296"
+  },
+  "url": "https://planetarycomputer.microsoft.com/api/stac/v1/search",
+  "bytes": 963296
+ },
+ "5c525639f313d82fffab54d35fc92f5b": {
+  "status": 200,
+  "headers": {
+   "content-type": "application/geo+json; charset=utf-8",
+   "content-length": "963226"
+  },
+  "url": "https://planetarycomputer.microsoft.com/api/stac/v1/search",
+  "bytes": 963226
+ },
+ "8374d45e123df82e973c3f8e59b5c621": {
+  "status": 200,
+  "headers": {
+   "content-type": "application/geo+json; charset=utf-8",
+   "content-length": "963296"
+  },
+  "url": "https://planetarycomputer.microsoft.com/api/stac/v1/search",
+  "bytes": 963296
+ },
+ "ffe00b9a0b09e94b07484ee7126ab1c3": {
+  "status": 200,
+  "headers": {
+   "content-type": "application/geo+json; charset=utf-8",
+   "content-length": "480083"
+  },
+  "url": "https://planetarycomputer.microsoft.com/api/stac/v1/search",
+  "bytes": 480083
+ },
+ "420be50187a5ac367da129e1a1ce5663": {
+  "status": 200,
+  "headers": {
+   "content-type": "application/json; charset=utf-8",
+   "content-length": "400"
+  },
+  "url": "https://planetarycomputer.microsoft.com/api/sas/v1/token/modiseuwest/modis-061-cogs",
+  "bytes": 400
+ },
+ "b3dae5ef196efc065d4811521e94ad8d": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 0-65536/45582889",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2001225/MOD13Q1.A2001225.h18v07.061.2020064130224_250m_16_days_NDVI.tif",
+  "bytes": 65537
+ },
+ "bbb4d7ced6400267d57c41c3ecf39af5": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 0-65536/45180512",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2001257/MOD13Q1.A2001257.h18v07.061.2020064231317_250m_16_days_NDVI.tif",
+  "bytes": 65537
+ },
+ "35279ba21c8ef6672d09f9dfabaeb4ce": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 0-65536/45327257",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2001241/MOD13Q1.A2001241.h18v07.061.2020064133535_250m_16_days_NDVI.tif",
+  "bytes": 65537
+ },
+ "ff7558471bc55578f7e9a02e5fb061f8": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 0-65536/44480072",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2002225/MOD13Q1.A2002225.h18v07.061.2020074215352_250m_16_days_NDVI.tif",
+  "bytes": 65537
+ },
+ "f4687e7cb69879f99aef9c7fa5d1cfb3": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 39583744-39911424/45582889",
+   "content-length": "327681"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2001225/MOD13Q1.A2001225.h18v07.061.2020064130224_250m_16_days_NDVI.tif",
+  "bytes": 327681
+ },
+ "133a0cb055191eaedad3483a758e1b25": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 39452672-39911424/45180512",
+   "content-length": "458753"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2001257/MOD13Q1.A2001257.h18v07.061.2020064231317_250m_16_days_NDVI.tif",
+  "bytes": 458753
+ },
+ "afbabe8888c49168fd6d0c6dcfac1436": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 39190528-39583744/45327257",
+   "content-length": "393217"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2001241/MOD13Q1.A2001241.h18v07.061.2020064133535_250m_16_days_NDVI.tif",
+  "bytes": 393217
+ },
+ "5b3828b612066b7e50a662afd9a3377f": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 0-65536/818546",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2001225/MOD13Q1.A2001225.h18v07.061.2020064130224_250m_16_days_pixel_reliability.tif",
+  "bytes": 65537
+ },
+ "8ca3b405b5e510d5a991938354f6f96f": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 0-65536/449455",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2001257/MOD13Q1.A2001257.h18v07.061.2020064231317_250m_16_days_pixel_reliability.tif",
+  "bytes": 65537
+ },
+ "ff9ee0e08a28ca43290f83625e16e201": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 0-65536/763882",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2001241/MOD13Q1.A2001241.h18v07.061.2020064133535_250m_16_days_pixel_reliability.tif",
+  "bytes": 65537
+ },
+ "dde71a76f767d9805263828b9215eecc": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 655360-720896/818546",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2001225/MOD13Q1.A2001225.h18v07.061.2020064130224_250m_16_days_pixel_reliability.tif",
+  "bytes": 65537
+ },
+ "13c1f23ec0743cb15e426ce5ca5ee5cc": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 38273024-38731776/44480072",
+   "content-length": "458753"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2002225/MOD13Q1.A2002225.h18v07.061.2020074215352_250m_16_days_NDVI.tif",
+  "bytes": 458753
+ },
+ "3dbd8ecaf76216f085a0bac08805d3b8": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 327680-393216/449455",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2001257/MOD13Q1.A2001257.h18v07.061.2020064231317_250m_16_days_pixel_reliability.tif",
+  "bytes": 65537
+ },
+ "d4f4a8db20cff697cccb60664af1b662": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 589824-655360/763882",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2001241/MOD13Q1.A2001241.h18v07.061.2020064133535_250m_16_days_pixel_reliability.tif",
+  "bytes": 65537
+ },
+ "5ccd41c248a9dab11d97767686e3a552": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 0-65536/44768642",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2002241/MOD13Q1.A2002241.h18v07.061.2020075222518_250m_16_days_NDVI.tif",
+  "bytes": 65537
+ },
+ "31ec042c01d09fa8a537a285220ffce7": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 0-65536/1059651",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2002225/MOD13Q1.A2002225.h18v07.061.2020074215352_250m_16_days_pixel_reliability.tif",
+  "bytes": 65537
+ },
+ "a25f8481b23229d2095e896078344491": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 0-65536/44879683",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2002257/MOD13Q1.A2002257.h18v07.061.2020076213239_250m_16_days_NDVI.tif",
+  "bytes": 65537
+ },
+ "3383e1d677d9f0285176b1ac8095ea3a": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 0-65536/43827642",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2003225/MOD13Q1.A2003225.h18v07.061.2020113145413_250m_16_days_NDVI.tif",
+  "bytes": 65537
+ },
+ "9932839c732675d1d7d473b538f2f2bd": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 851968-917504/1059651",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2002225/MOD13Q1.A2002225.h18v07.061.2020074215352_250m_16_days_pixel_reliability.tif",
+  "bytes": 65537
+ },
+ "1055947f89c6197c6eeb8d6311d62171": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 38862848-39321600/44768642",
+   "content-length": "458753"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2002241/MOD13Q1.A2002241.h18v07.061.2020075222518_250m_16_days_NDVI.tif",
+  "bytes": 458753
+ },
+ "990094b030b8002df819f82d972e5974": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 0-65536/45557524",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2003241/MOD13Q1.A2003241.h18v07.061.2020108172219_250m_16_days_NDVI.tif",
+  "bytes": 65537
+ },
+ "50289543061dd6093af3b54c22abc9ed": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 37945344-38338560/43827642",
+   "content-length": "393217"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2003225/MOD13Q1.A2003225.h18v07.061.2020113145413_250m_16_days_NDVI.tif",
+  "bytes": 393217
+ },
+ "1c680eaad673212a821f29532bfab28b": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 0-65536/737586",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2002241/MOD13Q1.A2002241.h18v07.061.2020075222518_250m_16_days_pixel_reliability.tif",
+  "bytes": 65537
+ },
+ "54e02fcec5cf796610792fd5224d766e": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 0-65536/1010889",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2003225/MOD13Q1.A2003225.h18v07.061.2020113145413_250m_16_days_pixel_reliability.tif",
+  "bytes": 65537
+ },
+ "c6c6e946e60124ec08f4be1b143afa00": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 39321600-39780352/45557524",
+   "content-length": "458753"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2003241/MOD13Q1.A2003241.h18v07.061.2020108172219_250m_16_days_NDVI.tif",
+  "bytes": 458753
+ },
+ "bc3548c679b41a0767f2da0800317152": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 589824-655360/737586",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2002241/MOD13Q1.A2002241.h18v07.061.2020075222518_250m_16_days_pixel_reliability.tif",
+  "bytes": 65537
+ },
+ "5434188d1945a701997592debca5ad40": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 851968-917504/1010889",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2003225/MOD13Q1.A2003225.h18v07.061.2020113145413_250m_16_days_pixel_reliability.tif",
+  "bytes": 65537
+ },
+ "1e4b0a8ed96822a52376802cd29e47da": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 38862848-39387136/44879683",
+   "content-length": "524289"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2002257/MOD13Q1.A2002257.h18v07.061.2020076213239_250m_16_days_NDVI.tif",
+  "bytes": 524289
+ },
+ "e894d7f6f915a3dfeff16ca5fd157992": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 0-65536/864188",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2003241/MOD13Q1.A2003241.h18v07.061.2020108172219_250m_16_days_pixel_reliability.tif",
+  "bytes": 65537
+ },
+ "74ebf70d2aaf2f331afda476ffcb64a3": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 0-65536/45042575",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2003257/MOD13Q1.A2003257.h18v07.061.2020109075443_250m_16_days_NDVI.tif",
+  "bytes": 65537
+ },
+ "311ce95df60a9a0875e397540d835cd2": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 0-65536/285076",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2002257/MOD13Q1.A2002257.h18v07.061.2020076213239_250m_16_days_pixel_reliability.tif",
+  "bytes": 65537
+ },
+ "0418d5bbdbc8e67a1bd6f5a79e8e1164": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 0-65536/44123136",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2004225/MOD13Q1.A2004225.h18v07.061.2020199020730_250m_16_days_NDVI.tif",
+  "bytes": 65537
+ },
+ "1dbf9c64756485f160f89786efded373": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 655360-720896/864188",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2003241/MOD13Q1.A2003241.h18v07.061.2020108172219_250m_16_days_pixel_reliability.tif",
+  "bytes": 65537
+ },
+ "e9afad4a9c4801dbb694897d03ddc90f": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 39059456-39518208/45042575",
+   "content-length": "458753"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2003257/MOD13Q1.A2003257.h18v07.061.2020109075443_250m_16_days_NDVI.tif",
+  "bytes": 458753
+ },
+ "e5369c3789042fa0e0572e939a6ce203": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 196608-262144/285076",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2002257/MOD13Q1.A2002257.h18v07.061.2020076213239_250m_16_days_pixel_reliability.tif",
+  "bytes": 65537
+ },
+ "81b4bcd0c4c385f95634e53aa0425742": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 0-65536/45258972",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2004241/MOD13Q1.A2004241.h18v07.061.2020200072002_250m_16_days_NDVI.tif",
+  "bytes": 65537
+ },
+ "d6b0eded464309c3c962a873e3f4e477": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 0-65536/538218",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2003257/MOD13Q1.A2003257.h18v07.061.2020109075443_250m_16_days_pixel_reliability.tif",
+  "bytes": 65537
+ },
+ "b980f56f0ddf00728609224f32669f9f": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 0-65536/45328974",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2004257/MOD13Q1.A2004257.h18v07.061.2020206130431_250m_16_days_NDVI.tif",
+  "bytes": 65537
+ },
+ "88804b5d2792ce6341d8d489360b829a": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 393216-458752/538218",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2003257/MOD13Q1.A2003257.h18v07.061.2020109075443_250m_16_days_pixel_reliability.tif",
+  "bytes": 65537
+ },
+ "5e84e801b6219dfc8dfe2655843ba1ad": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 38338560-38666240/44123136",
+   "content-length": "327681"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2004225/MOD13Q1.A2004225.h18v07.061.2020199020730_250m_16_days_NDVI.tif",
+  "bytes": 327681
+ },
+ "ef9a5be35a0b2380acd612ad7769b728": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 39190528-39714816/45258972",
+   "content-length": "524289"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2004241/MOD13Q1.A2004241.h18v07.061.2020200072002_250m_16_days_NDVI.tif",
+  "bytes": 524289
+ },
+ "32e43155a619d3f7cbe2d64d6ad60d3e": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 0-65536/45343109",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2005225/MOD13Q1.A2005225.h18v07.061.2020244140638_250m_16_days_NDVI.tif",
+  "bytes": 65537
+ },
+ "e967175db925678b372b5e5fa53be89e": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 0-65536/923231",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2004225/MOD13Q1.A2004225.h18v07.061.2020199020730_250m_16_days_pixel_reliability.tif",
+  "bytes": 65537
+ },
+ "a3170665720506e23a7ec1e6407e47f1": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 39190528-39714816/45328974",
+   "content-length": "524289"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2004257/MOD13Q1.A2004257.h18v07.061.2020206130431_250m_16_days_NDVI.tif",
+  "bytes": 524289
+ },
+ "e772f22721bef157aec4d02a5dda8bc8": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 0-65536/644539",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2004241/MOD13Q1.A2004241.h18v07.061.2020200072002_250m_16_days_pixel_reliability.tif",
+  "bytes": 65537
+ },
+ "cded42b6032a04cdaf4b46886bd318e1": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 39059456-39452672/45343109",
+   "content-length": "393217"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2005225/MOD13Q1.A2005225.h18v07.061.2020244140638_250m_16_days_NDVI.tif",
+  "bytes": 393217
+ },
+ "397aadf69243f5c59e8d130531b1b968": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 0-65536/296196",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2004257/MOD13Q1.A2004257.h18v07.061.2020206130431_250m_16_days_pixel_reliability.tif",
+  "bytes": 65537
+ },
+ "f0870ab6ddad89381460e0ee1ae21235": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 786432-851968/923231",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2004225/MOD13Q1.A2004225.h18v07.061.2020199020730_250m_16_days_pixel_reliability.tif",
+  "bytes": 65537
+ },
+ "d7417ac8bf7fdc47316a6d2f0b225cc3": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 524288-589824/644539",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2004241/MOD13Q1.A2004241.h18v07.061.2020200072002_250m_16_days_pixel_reliability.tif",
+  "bytes": 65537
+ },
+ "3cf1a7a8757c6a0e8e960e98d290f7f3": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 196608-262144/296196",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2004257/MOD13Q1.A2004257.h18v07.061.2020206130431_250m_16_days_pixel_reliability.tif",
+  "bytes": 65537
+ },
+ "2c5c5fd031004e317f0357fd353a6ab6": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 0-65536/953712",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2005225/MOD13Q1.A2005225.h18v07.061.2020244140638_250m_16_days_pixel_reliability.tif",
+  "bytes": 65537
+ },
+ "06fab1838e988c658bd5f7ef6226b0c8": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 0-65536/44814643",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2005241/MOD13Q1.A2005241.h18v07.061.2020245151929_250m_16_days_NDVI.tif",
+  "bytes": 65537
+ },
+ "e829d691f284acca4a4580cbef3ff747": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 0-65536/45194432",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2005257/MOD13Q1.A2005257.h18v07.061.2020246162631_250m_16_days_NDVI.tif",
+  "bytes": 65537
+ },
+ "bb01fd85cfee9bbbdb8a9aac82e93ef4": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 786432-851968/953712",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2005225/MOD13Q1.A2005225.h18v07.061.2020244140638_250m_16_days_pixel_reliability.tif",
+  "bytes": 65537
+ },
+ "405f59074483bdeebef6c88f4c7fca17": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 0-65536/44689912",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2006225/MOD13Q1.A2006225.h18v07.061.2020272192541_250m_16_days_NDVI.tif",
+  "bytes": 65537
+ },
+ "1e6bae34cf44ac15adb51e948f053377": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 39190528-39583744/44814643",
+   "content-length": "393217"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2005241/MOD13Q1.A2005241.h18v07.061.2020245151929_250m_16_days_NDVI.tif",
+  "bytes": 393217
+ },
+ "8417622fc2f0f8edd1ca456f52a12f88": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 39190528-39714816/45194432",
+   "content-length": "524289"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2005257/MOD13Q1.A2005257.h18v07.061.2020246162631_250m_16_days_NDVI.tif",
+  "bytes": 524289
+ },
+ "907c16f46a23c9fdb32b3ae6ff9e2c20": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 0-65536/44991034",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2006241/MOD13Q1.A2006241.h18v07.061.2020273193336_250m_16_days_NDVI.tif",
+  "bytes": 65537
+ },
+ "e6f64dd51860e1a840a2fa3927a8f2db": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 38535168-38993920/44689912",
+   "content-length": "458753"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2006225/MOD13Q1.A2006225.h18v07.061.2020272192541_250m_16_days_NDVI.tif",
+  "bytes": 458753
+ },
+ "36a8e9ee6e02e5f9cad4df27fa9589e5": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 0-65536/827856",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2005241/MOD13Q1.A2005241.h18v07.061.2020245151929_250m_16_days_pixel_reliability.tif",
+  "bytes": 65537
+ },
+ "a64cd220931a3f65f6be3d8fdb8ea77a": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 0-65536/243421",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2005257/MOD13Q1.A2005257.h18v07.061.2020246162631_250m_16_days_pixel_reliability.tif",
+  "bytes": 65537
+ },
+ "50efae8d5bdc0080aa7e63056beb6df8": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 0-65536/975710",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2006225/MOD13Q1.A2006225.h18v07.061.2020272192541_250m_16_days_pixel_reliability.tif",
+  "bytes": 65537
+ },
+ "a815ad1e07886c60281d6b20e51fd13b": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 39190528-39649280/44991034",
+   "content-length": "458753"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2006241/MOD13Q1.A2006241.h18v07.061.2020273193336_250m_16_days_NDVI.tif",
+  "bytes": 458753
+ },
+ "f58c9d22fe8efcb235673c342102c4b7": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 131072-196608/243421",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2005257/MOD13Q1.A2005257.h18v07.061.2020246162631_250m_16_days_pixel_reliability.tif",
+  "bytes": 65537
+ },
+ "a8241b437840e2601ec6fd0a957922e5": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 655360-720896/827856",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2005241/MOD13Q1.A2005241.h18v07.061.2020245151929_250m_16_days_pixel_reliability.tif",
+  "bytes": 65537
+ },
+ "c9f90b7185e62c72a9a68183d89c3cba": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 786432-851968/975710",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2006225/MOD13Q1.A2006225.h18v07.061.2020272192541_250m_16_days_pixel_reliability.tif",
+  "bytes": 65537
+ },
+ "35e24b9114add67a995f9ccf937ada1b": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 0-65536/793002",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2006241/MOD13Q1.A2006241.h18v07.061.2020273193336_250m_16_days_pixel_reliability.tif",
+  "bytes": 65537
+ },
+ "f8f49025097da6c3430fb338290a14cc": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 0-65536/45565838",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2006257/MOD13Q1.A2006257.h18v07.061.2020273212557_250m_16_days_NDVI.tif",
+  "bytes": 65537
+ },
+ "708eccede0a6e03371c20a99f0a1e933": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 0-65536/45607757",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2007225/MOD13Q1.A2007225.h18v07.061.2021072224347_250m_16_days_NDVI.tif",
+  "bytes": 65537
+ },
+ "06bcf64f62b298de33dc5381459217b0": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 0-65536/46223663",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2007241/MOD13Q1.A2007241.h18v07.061.2021073193736_250m_16_days_NDVI.tif",
+  "bytes": 65537
+ },
+ "77a108236af274d1b234b813232018d0": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 655360-720896/793002",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2006241/MOD13Q1.A2006241.h18v07.061.2020273193336_250m_16_days_pixel_reliability.tif",
+  "bytes": 65537
+ },
+ "09e98ac3b10ac12577d6bebb57e6955d": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 39452672-39911424/45565838",
+   "content-length": "458753"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2006257/MOD13Q1.A2006257.h18v07.061.2020273212557_250m_16_days_NDVI.tif",
+  "bytes": 458753
+ },
+ "9a79d93539714f95e053f13af4654d1e": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 39583744-39976960/45607757",
+   "content-length": "393217"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2007225/MOD13Q1.A2007225.h18v07.061.2021072224347_250m_16_days_NDVI.tif",
+  "bytes": 393217
+ },
+ "b539a0955d2f9b826ac5c06c04129730": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 0-65536/45895470",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2007257/MOD13Q1.A2007257.h18v07.061.2021074203357_250m_16_days_NDVI.tif",
+  "bytes": 65537
+ },
+ "b63e5adba4944771be44ca84bd423750": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 40042496-40501248/46223663",
+   "content-length": "458753"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2007241/MOD13Q1.A2007241.h18v07.061.2021073193736_250m_16_days_NDVI.tif",
+  "bytes": 458753
+ },
+ "70633be3a71cfa98566b5dd90861219d": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 0-65536/495096",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2006257/MOD13Q1.A2006257.h18v07.061.2020273212557_250m_16_days_pixel_reliability.tif",
+  "bytes": 65537
+ },
+ "b3f87f3c3939af234fe15cb7f15c61d2": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 0-65536/960671",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2007225/MOD13Q1.A2007225.h18v07.061.2021072224347_250m_16_days_pixel_reliability.tif",
+  "bytes": 65537
+ },
+ "504eecd07943a993fd64813a56aa6396": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 0-65536/804441",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2007241/MOD13Q1.A2007241.h18v07.061.2021073193736_250m_16_days_pixel_reliability.tif",
+  "bytes": 65537
+ },
+ "4641edb6a875d7bdcc2bcd2638017f2b": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 40042496-40566784/45895470",
+   "content-length": "524289"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2007257/MOD13Q1.A2007257.h18v07.061.2021074203357_250m_16_days_NDVI.tif",
+  "bytes": 524289
+ },
+ "10e16431861765feb5fc42ff4b872b81": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 327680-458752/495096",
+   "content-length": "131073"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2006257/MOD13Q1.A2006257.h18v07.061.2020273212557_250m_16_days_pixel_reliability.tif",
+  "bytes": 131073
+ },
+ "3860369d8da54dfc2eeaadfa159041e7": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 786432-851968/960671",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2007225/MOD13Q1.A2007225.h18v07.061.2021072224347_250m_16_days_pixel_reliability.tif",
+  "bytes": 65537
+ },
+ "8b971b107130d150bf0ff03054bcdcd1": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 655360-720896/804441",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2007241/MOD13Q1.A2007241.h18v07.061.2021073193736_250m_16_days_pixel_reliability.tif",
+  "bytes": 65537
+ },
+ "db14855531c4d845370c4db5c5dada23": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 0-65536/522003",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2007257/MOD13Q1.A2007257.h18v07.061.2021074203357_250m_16_days_pixel_reliability.tif",
+  "bytes": 65537
+ },
+ "6a2d9b15c583001dd8fc5d9f90d8981f": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 0-65536/45631310",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2008225/MOD13Q1.A2008225.h18v07.061.2021105105210_250m_16_days_NDVI.tif",
+  "bytes": 65537
+ },
+ "e5c3db579b300ac97e068e250006ba22": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 0-65536/45289676",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2008241/MOD13Q1.A2008241.h18v07.061.2021106094753_250m_16_days_NDVI.tif",
+  "bytes": 65537
+ },
+ "244b44bc4bd167c1c7abbfd006cc2c97": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 0-65536/45123683",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2008257/MOD13Q1.A2008257.h18v07.061.2021107145935_250m_16_days_NDVI.tif",
+  "bytes": 65537
+ },
+ "b47e754aaafdfe2ec0f314b1dffcd0b8": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 393216-458752/522003",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2007257/MOD13Q1.A2007257.h18v07.061.2021074203357_250m_16_days_pixel_reliability.tif",
+  "bytes": 65537
+ },
+ "a2a9312eaac90e8945cc707b68d3046d": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 39387136-39845888/45631310",
+   "content-length": "458753"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2008225/MOD13Q1.A2008225.h18v07.061.2021105105210_250m_16_days_NDVI.tif",
+  "bytes": 458753
+ },
+ "4445dafc3d3a8d3014c0aa8d5988b01f": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 38993920-39452672/45123683",
+   "content-length": "458753"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2008257/MOD13Q1.A2008257.h18v07.061.2021107145935_250m_16_days_NDVI.tif",
+  "bytes": 458753
+ },
+ "12518c1a43e27d81ca17aee78306675b": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 0-65536/44275028",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2009225/MOD13Q1.A2009225.h18v07.061.2021140060645_250m_16_days_NDVI.tif",
+  "bytes": 65537
+ },
+ "6589333f86e2291a1f097fe52c54967c": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 39518208-39976960/45289676",
+   "content-length": "458753"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2008241/MOD13Q1.A2008241.h18v07.061.2021106094753_250m_16_days_NDVI.tif",
+  "bytes": 458753
+ },
+ "74c3d28326475ab06a907dbc4afc48fa": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 0-65536/867981",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2008225/MOD13Q1.A2008225.h18v07.061.2021105105210_250m_16_days_pixel_reliability.tif",
+  "bytes": 65537
+ },
+ "666918bd4394e3745b52d75e173c0837": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 0-65536/591465",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2008257/MOD13Q1.A2008257.h18v07.061.2021107145935_250m_16_days_pixel_reliability.tif",
+  "bytes": 65537
+ },
+ "d9dd305b6f4d3d32b694a96026c6eb87": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 38076416-38535168/44275028",
+   "content-length": "458753"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2009225/MOD13Q1.A2009225.h18v07.061.2021140060645_250m_16_days_NDVI.tif",
+  "bytes": 458753
+ },
+ "03c1b2b69106584fa88e6f80e6dab068": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 0-65536/849821",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2008241/MOD13Q1.A2008241.h18v07.061.2021106094753_250m_16_days_pixel_reliability.tif",
+  "bytes": 65537
+ },
+ "e5d7a4b93bbe05101eb693c818ec1af3": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 720896-786432/867981",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2008225/MOD13Q1.A2008225.h18v07.061.2021105105210_250m_16_days_pixel_reliability.tif",
+  "bytes": 65537
+ },
+ "111d3f6894c3f822dc6e3d8aabe6c8b5": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 458752-524288/591465",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2008257/MOD13Q1.A2008257.h18v07.061.2021107145935_250m_16_days_pixel_reliability.tif",
+  "bytes": 65537
+ },
+ "66636bba3a71ad30b7075147393c1d8c": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 0-65536/974480",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2009225/MOD13Q1.A2009225.h18v07.061.2021140060645_250m_16_days_pixel_reliability.tif",
+  "bytes": 65537
+ },
+ "338d49ceb57c459653be1e08fe1ef6ff": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 655360-786432/849821",
+   "content-length": "131073"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2008241/MOD13Q1.A2008241.h18v07.061.2021106094753_250m_16_days_pixel_reliability.tif",
+  "bytes": 131073
+ },
+ "81f1be22ece04bdf19b6db5600d2b785": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 0-65536/45391586",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2009241/MOD13Q1.A2009241.h18v07.061.2021141105810_250m_16_days_NDVI.tif",
+  "bytes": 65537
+ },
+ "bc469091beea9e53fdf33311431db571": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 786432-851968/974480",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2009225/MOD13Q1.A2009225.h18v07.061.2021140060645_250m_16_days_pixel_reliability.tif",
+  "bytes": 65537
+ },
+ "33ddb505c82f59669a0cfc47651b579a": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 0-65536/44870588",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2009257/MOD13Q1.A2009257.h18v07.061.2021142080835_250m_16_days_NDVI.tif",
+  "bytes": 65537
+ },
+ "98e61ce485fad2cea0465b9a8a0a84ab": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 0-65536/44338011",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2010225/MOD13Q1.A2010225.h18v07.061.2021169152030_250m_16_days_NDVI.tif",
+  "bytes": 65537
+ },
+ "aecc003621bc580d59a50c82dbf976de": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 39190528-39714816/45391586",
+   "content-length": "524289"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2009241/MOD13Q1.A2009241.h18v07.061.2021141105810_250m_16_days_NDVI.tif",
+  "bytes": 524289
+ },
+ "dd0c9b8f00ebcd71982c01b2ea59ec13": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 0-65536/45630845",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2010241/MOD13Q1.A2010241.h18v07.061.2021172142438_250m_16_days_NDVI.tif",
+  "bytes": 65537
+ },
+ "7ceb10964ae794bd9ff712a8f803f278": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 38993920-39387136/44870588",
+   "content-length": "393217"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2009257/MOD13Q1.A2009257.h18v07.061.2021142080835_250m_16_days_NDVI.tif",
+  "bytes": 393217
+ },
+ "16007d5f311b744d299e4cbef799a2ba": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 38666240-39059456/44338011",
+   "content-length": "393217"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2010225/MOD13Q1.A2010225.h18v07.061.2021169152030_250m_16_days_NDVI.tif",
+  "bytes": 393217
+ },
+ "80b466b6b49849e258f5d177b0dcae72": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 0-65536/740168",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2009241/MOD13Q1.A2009241.h18v07.061.2021141105810_250m_16_days_pixel_reliability.tif",
+  "bytes": 65537
+ },
+ "59dab8a78026378dc93d25d1e27e8be0": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 0-65536/978451",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2010225/MOD13Q1.A2010225.h18v07.061.2021169152030_250m_16_days_pixel_reliability.tif",
+  "bytes": 65537
+ },
+ "d86af2a4332b25e0081b8461bd0f870b": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 0-65536/491710",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2009257/MOD13Q1.A2009257.h18v07.061.2021142080835_250m_16_days_pixel_reliability.tif",
+  "bytes": 65537
+ },
+ "cd5f089d380414abf4712a66f5cb6ceb": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 589824-655360/740168",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2009241/MOD13Q1.A2009241.h18v07.061.2021141105810_250m_16_days_pixel_reliability.tif",
+  "bytes": 65537
+ },
+ "116a9a8dd42bd864cf97563dd231b3cc": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 786432-917504/978451",
+   "content-length": "131073"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2010225/MOD13Q1.A2010225.h18v07.061.2021169152030_250m_16_days_pixel_reliability.tif",
+  "bytes": 131073
+ },
+ "27b536a9cde6bbc023936675ad015f9f": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 393216-458752/491710",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2009257/MOD13Q1.A2009257.h18v07.061.2021142080835_250m_16_days_pixel_reliability.tif",
+  "bytes": 65537
+ },
+ "18b0349fa1d611e652d50d47c6f8e3a1": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 39583744-39976960/45630845",
+   "content-length": "393217"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2010241/MOD13Q1.A2010241.h18v07.061.2021172142438_250m_16_days_NDVI.tif",
+  "bytes": 393217
+ },
+ "7fe59a10a09bfa4e7cc7cca70cba1a32": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 0-65536/46003330",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2010257/MOD13Q1.A2010257.h18v07.061.2021175222801_250m_16_days_NDVI.tif",
+  "bytes": 65537
+ },
+ "64b88be476b6337444e7e05656809635": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 0-65536/842686",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2010241/MOD13Q1.A2010241.h18v07.061.2021172142438_250m_16_days_pixel_reliability.tif",
+  "bytes": 65537
+ },
+ "d5976a93680541c7327d112495139de8": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 0-65536/44704126",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2011225/MOD13Q1.A2011225.h18v07.061.2021195223038_250m_16_days_NDVI.tif",
+  "bytes": 65537
+ },
+ "2b9667c7a681ac42ba4b495f56a17cc3": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 0-65536/45110732",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2011241/MOD13Q1.A2011241.h18v07.061.2021196171011_250m_16_days_NDVI.tif",
+  "bytes": 65537
+ },
+ "50e8c644af046e09588a2bd94c321427": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 720896-786432/842686",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2010241/MOD13Q1.A2010241.h18v07.061.2021172142438_250m_16_days_pixel_reliability.tif",
+  "bytes": 65537
+ },
+ "171ce2ed65e2d5e920d3f5e35be68ccb": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 38731776-39124992/44704126",
+   "content-length": "393217"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2011225/MOD13Q1.A2011225.h18v07.061.2021195223038_250m_16_days_NDVI.tif",
+  "bytes": 393217
+ },
+ "8110b130934d80e8158570682f7adaef": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 39321600-39714816/45110732",
+   "content-length": "393217"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2011241/MOD13Q1.A2011241.h18v07.061.2021196171011_250m_16_days_NDVI.tif",
+  "bytes": 393217
+ },
+ "faf3a378bc753059d6fd40c3f25590ed": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 0-65536/45560491",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2011257/MOD13Q1.A2011257.h18v07.061.2021197164717_250m_16_days_NDVI.tif",
+  "bytes": 65537
+ },
+ "12b866e535af2d63f135aaba94fdb80f": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 0-65536/798675",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2011241/MOD13Q1.A2011241.h18v07.061.2021196171011_250m_16_days_pixel_reliability.tif",
+  "bytes": 65537
+ },
+ "dd65d5a84ac598f0208120a4d5c3419c": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 40042496-40566784/46003330",
+   "content-length": "524289"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2010257/MOD13Q1.A2010257.h18v07.061.2021175222801_250m_16_days_NDVI.tif",
+  "bytes": 524289
+ },
+ "96b698b6725d319cd49bfe56e0d88966": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 0-65536/1009644",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2011225/MOD13Q1.A2011225.h18v07.061.2021195223038_250m_16_days_pixel_reliability.tif",
+  "bytes": 65537
+ },
+ "0d02cc7ab40e8d8bbd43db796676f8e2": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 0-65536/574409",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2010257/MOD13Q1.A2010257.h18v07.061.2021175222801_250m_16_days_pixel_reliability.tif",
+  "bytes": 65537
+ },
+ "13be44b4cb7287cb1d649c46e897e160": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 655360-720896/798675",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2011241/MOD13Q1.A2011241.h18v07.061.2021196171011_250m_16_days_pixel_reliability.tif",
+  "bytes": 65537
+ },
+ "56b8d16588e766863426960ac19b4074": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 39387136-39845888/45560491",
+   "content-length": "458753"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2011257/MOD13Q1.A2011257.h18v07.061.2021197164717_250m_16_days_NDVI.tif",
+  "bytes": 458753
+ },
+ "418c5afc56ee4342314e87ac41a163a4": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 851968-917504/1009644",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2011225/MOD13Q1.A2011225.h18v07.061.2021195223038_250m_16_days_pixel_reliability.tif",
+  "bytes": 65537
+ },
+ "041fe85705dcb6753f636c99c9ed6790": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 0-65536/443088",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2011257/MOD13Q1.A2011257.h18v07.061.2021197164717_250m_16_days_pixel_reliability.tif",
+  "bytes": 65537
+ },
+ "04f6cff5d982aaade6dbd78a63651bb1": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 458752-524288/574409",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2010257/MOD13Q1.A2010257.h18v07.061.2021175222801_250m_16_days_pixel_reliability.tif",
+  "bytes": 65537
+ },
+ "8454842ba29ceab937d92a474267d7df": {
+  "status": 206,
+  "headers": {
+   "content-type": "image/tiff; application=geotiff; profile=cloud-optimized",
+   "content-range": "bytes 327680-393216/443088",
+   "content-length": "65537"
+  },
+  "url": "https://modiseuwest.blob.core.windows.net/modis-061-cogs/MOD13Q1/18/07/2011257/MOD13Q1.A2011257.h18v07.061.2021197164717_250m_16_days_pixel_reliability.tif",
+  "bytes": 65537
+ },
+ "d8647129f443fe47e8bedc56301517ac": {
+  "status": 200,
+  "headers": {
+   "content-type": "application/geo+json; charset=utf-8",
+   "content-length": "5338"
+  },
+  "url": "https://planetarycomputer.microsoft.com/api/stac/v1/search",
+  "bytes": 5338
+ },
+ "c361da06d3748b8e3f67e20656c5a8dc": {
+  "status": 200,
+  "headers": {
+   "content-type": "application/json; charset=utf-8",
+   "content-length": "400"
+  },
+  "url": "https://planetarycomputer.microsoft.com/api/sas/v1/token/ai4edataeuwest/esa-worldcover",
+  "bytes": 400
+ },
+ "7e711622f4b2fdd7ce6597d599f0b6da": {
+  "status": 206,
+  "headers": {
+   "content-type": "application/octet-stream",
+   "content-range": "bytes 0-65536/102374740",
+   "content-length": "65537"
+  },
+  "url": "https://ai4edataeuwest.blob.core.windows.net/esa-worldcover/v200/2021/map/ESA_WorldCover_10m_2021_v200_N12E006_Map.tif",
+  "bytes": 65537
+ },
+ "9bfe4731a267e01e0e01c561c13e142d": {
+  "status": 206,
+  "headers": {
+   "content-type": "application/octet-stream",
+   "content-range": "bytes 98369536-98566144/102374740",
+   "content-length": "196609"
+  },
+  "url": "https://ai4edataeuwest.blob.core.windows.net/esa-worldcover/v200/2021/map/ESA_WorldCover_10m_2021_v200_N12E006_Map.tif",
+  "bytes": 196609
+ },
+ "eca958ae3c6b0a301b27a56c5e20aa32": {
+  "status": 206,
+  "headers": {
+   "content-type": "application/octet-stream",
+   "content-range": "bytes 99942400-100139008/102374740",
+   "content-length": "196609"
+  },
+  "url": "https://ai4edataeuwest.blob.core.windows.net/esa-worldcover/v200/2021/map/ESA_WorldCover_10m_2021_v200_N12E006_Map.tif",
+  "bytes": 196609
+ },
+ "50bc8e47310303be0dc13ba62af0249b": {
+  "status": 200,
+  "headers": {
+   "content-type": "application/json",
+   "content-length": "63189"
+  },
+  "url": "https://power.larc.nasa.gov/api/temporal/daily/point",
+  "bytes": 63189
+ }
+}
