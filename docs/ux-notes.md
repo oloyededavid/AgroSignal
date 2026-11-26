@@ -1,4 +1,4 @@
-# AgroSignal: interface notes
+# AgroSignal: interface note
 
 Version 1.1.0, November 2026. What changed in the interface, why, and what is still open. The analysis (`js/engine.js`, `js/pipeline.js`) is unchanged; `tests/fixture_kano.mjs` replays fixed inputs and checks the anomaly and z grids by hash, the regional figures and the rainfall.
 
