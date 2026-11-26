@@ -1,7 +1,4 @@
-/* Shared dashboard for FloodScope, GeoValidate and AgroSignal. Version 2 (November 2026).
-   Source of truth: geospatial-rs-portfolio/shared/dash.css; copies in each tool are checked by tools/check_shared.sh there.
-   One screen, no page scroll on desktop: a light step rail on the left; on the right a header, a strip of key figures, the map,
-   and an evidence panel with tabs. Regions are divided by rules, not floating cards. Each app sets --accent. */
+
 @font-face { font-family: 'Satoshi'; src: url(../assets/fonts/Satoshi-400.woff2) format('woff2'); font-weight: 400; font-display: swap; }
 @font-face { font-family: 'Satoshi'; src: url(../assets/fonts/Satoshi-500.woff2) format('woff2'); font-weight: 500; font-display: swap; }
 @font-face { font-family: 'Satoshi'; src: url(../assets/fonts/Satoshi-700.woff2) format('woff2'); font-weight: 700; font-display: swap; }
