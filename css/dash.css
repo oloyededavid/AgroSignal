@@ -259,8 +259,6 @@ label.f > output { justify-self: end; }
 .plain li { margin: 4px 0; line-height: 1.5; }
 .plain b { font-weight: 600; }
 
-/* ---------------------------------------------------------------- version 2 additions */
-/* before a run: what the tool answers, what it returns, how to start (replaces empty figure boxes) */
 .intro { padding: 18px 24px 20px; border-bottom: 1px solid var(--rule); display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 8px 40px; align-items: start; }
 .intro h2 { grid-column: 1 / -1; margin: 0; font-size: 12.5px; font-weight: 500; color: var(--ink-3); text-transform: none; }
 .intro .lead { margin: 0; font-size: 15px; line-height: 1.5; color: var(--ink); max-width: 60ch; }
