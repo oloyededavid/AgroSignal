@@ -1,5 +1,25 @@
-# AgroSignal: interface note
+# AgroSignal: interface notes
 
+## Version 1.2.0: interface rebuilt as a guided product (27 November 2026)
+
+The page was hard to use: a dense side rail of form steps, a results area full of text, four tabs and odd floating buttons. It was rebuilt around one path. The analysis (`js/engine.js`, `js/pipeline.js`, `js/io.js`, `js/exports.js`, `js/worker.js`) is unchanged; `tests/fixture_kano.mjs` still gives identical values and grid hashes.
+
+| Before | Now |
+|---|---|
+| The map and a form rail on arrival | An opening screen: one question, a search box, three examples, and the three steps explained in one line each |
+| Accordion steps with every setting visible | A stepper (Place, Season, Result). Picking a search result goes straight to Season; the months and year are preset from the latitude, with the reason stated |
+| Baseline, satellite and cropland switch on the main form | Under Advanced settings; choosing Aqua moves the comparison start to 2003 instead of showing an error |
+| A progress log of engine messages | Four plain stages with a progress bar and a Cancel button |
+| A long Reading paragraph, a caution paragraph, four figure boxes and four tabs | A verdict on a five-step scale, one sentence, three figures, the drift caution only when it applies, two charts, the share of pixels per class; method and run details folded away |
+| Layer chips that overflowed a phone by 6 px | One labelled select with the legend in a map card |
+| A Downloads menu | One Export button opening a list of seven exports, each with a one-line description |
+| Green accent throughout | Neutral surfaces and one cobalt accent; the brown–teal data ramp is kept (colour-blind check unchanged) |
+
+Examples: Kano 2026 (the validated case), Punjab 2023 and Saskatchewan 2021. The last two use the settings that passed `tests/global_check.mjs`; they are run demonstrations, not validated against crop statistics. The example cards state no result; the result comes from each run.
+
+Default months by latitude (south of 5° S: November to March; 5° S to 40° N: June to October; north of 40° N: May to August) are a starting point only. The page says so and asks the user to match their crop.
+
+## Version 1.1.0
 Version 1.1.0, November 2026. What changed in the interface, why, and what is still open. The analysis (`js/engine.js`, `js/pipeline.js`) is unchanged; `tests/fixture_kano.mjs` replays fixed inputs and checks the anomaly and z grids by hash, the regional figures and the rainfall.
 
 | Change | Why (audit finding) |

@@ -4,9 +4,9 @@ Was this growing season greener or browner than usual, and was it wetter or drie
 
 ## Use it
 
-1. **Area.** Search for a place, draw a box, or load the example (farmland around Bagwai, Kano State, Nigeria).
-2. **Season.** Pick the months, the season's year and the baseline years. Seasons may cross the new year (for example November to March). Under "Satellite", the analysis can use Aqua instead of Terra.
-3. **Result.** The map shows the z-score, anomaly, VCI, season NDVI or cropland share; hover for a pixel's values. The tabs on the right hold the yearly series with rainfall, the within-season curve, the z-score classes and the run details. Downloads: GeoTIFF (7 bands on the MODIS sinusoidal grid), years CSV, pixels CSV, JSON, map PNG, printable report.
+1. **Place.** Search a region, district or town on the opening screen, draw a box on the map, or open one of three examples (Kano, Nigeria; Punjab, India; Saskatchewan, Canada).
+2. **Season.** Months and year are set for you from the latitude (the latest finished season); change them to match the crop. Seasons may cross the new year. Advanced settings hold the comparison years (default 2001–2020), the satellite (Terra or Aqua) and the cropland-only switch.
+3. **Result.** A plain verdict on a five-step scale, the season's rank, greenness and rainfall, a yearly chart and a within-season curve, and the share of pixels in each class. The map shows the z-score, change, condition (VCI), greenness or cropland share; hover for a pixel's values. Export: printable report, map PNG, GeoTIFF (7 bands on the MODIS sinusoidal grid), seasons CSV, pixels CSV, JSON, and a share link that reruns the analysis.
 
 ## What it measures, and what it does not
 
@@ -36,7 +36,8 @@ python3 pipeline/reference.py OUT.json REF.json          # independent Python re
 python3 pipeline/reference_climate.py OUT.json 8 12 8.4 12.4   # rainfall from the original CHIRPS files
 node tests/sensor_check.mjs 2026           # Terra against Aqua
 node tests/global_check.mjs                # four other regions, including one outside rainfall coverage
-node tests/browser_e2e.cjs OUT_DIR         # the page in headless Chromium
+node tests/fixture_kano.mjs                # fixed-input regression test (page served on 8765)
+node tests/browser_e2e.cjs OUT_DIR         # whole page in headless Chromium, desktop and phone (page served on 8765)
 ```
 
 Rebuild or extend the rainfall archive (downloads about 31 MB per month from the Climate Hazards Center):
@@ -49,7 +50,7 @@ python3 pipeline/build_chirps.py 2026 2027
 
 | Path | Content |
 |---|---|
-| `index.html`, `css/dash.css`, `js/app.js` | Page: step sidebar, key figures, map, evidence tabs |
+| `index.html`, `css/app.css`, `js/app.js` | Page: welcome, three steps (place, season, result), map, export |
 | `js/worker.js` | Web Worker that runs the analysis and writes exports |
 | `js/pipeline.js` | Search, reading, season and baseline statistics, climate |
 | `js/engine.js` | Pure functions (no network), unit-tested |

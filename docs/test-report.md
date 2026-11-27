@@ -51,3 +51,17 @@ Planetary Computer was queried directly on 25 November 2026: at the Kano box, MO
 Changes in 1.1.1: the archive check above; shares below 1% in the Reading keep one decimal, so it agrees with the Pixels tab; the rainfall correlation is described as weak, moderate or strong; a shared link with values the page does not offer, or an area outside the limits, says so and runs nothing; the side-panel example button reads "Example". The analysis is unchanged; the engine's messages for an empty search and a season gap are clearer.
 
 Phone map overlays (after 1.1.1, same version): at 860 px and below the scale bar sits bottom-left above the Legend chip, the map credits start closed behind the i button, and layer chips stay in one scrolling row. Checked at 390 px after an example run: no overlapping overlays; axe 0 violations.
+
+## Version 1.2.0 (interface rebuilt), 27 November 2026
+
+| # | Test | Expected | Result | Status |
+|---|---|---|---|---|
+| 18 | `tests/engine_test.mjs` | all pass | all pass | Pass |
+| 19 | `tests/fixture_kano.mjs` | 10 values and both grid hashes unchanged | identical (z 1.062842, rank 8, rain 390.8 mm) | Pass |
+| 20 | `tests/browser_e2e.cjs`, 1440 × 900: Kano example from the opening screen | result view, same figures as 1.1.1 | 71 s; "Much greener than usual", 0.525 against 0.453, 20 of 20, z +2.97, rain +2 % (896 against 879 mm), drift caution shown | Pass |
+| 21 | Same run: map hover, five layers, both charts, seven exports | values and files | hover values shown; PNG, GeoTIFF, two CSVs and JSON written; link copied | Pass |
+| 22 | Share link opened in a new page | same figures | identical | Pass |
+| 23 | 390 px phone: search "Ludhiana", pick the first result, run with the preset season | season preset, no horizontal scroll, result | Jun–Oct 2026 preset; 0 px overflow on the opening, season and result screens; run completed | Pass |
+| 24 | Console errors across both runs | none | none | Pass |
+
+Not checked in 1.2.0: the printed report (headless print was not inspected), screen readers, real touch devices, and the Punjab and Saskatchewan examples from the opening screen (their settings ran in `global_check.mjs` on 23 November).
