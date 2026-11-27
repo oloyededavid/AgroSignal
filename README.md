@@ -4,7 +4,7 @@ Was this growing season greener or browner than usual, and was it wetter or drie
 
 ## Use it
 
-1. **Place.** Search a region, district or town on the opening screen, draw a box on the map, or open one of three examples (Kano, Nigeria; Punjab, India; Saskatchewan, Canada).
+1. **Place.** Search a region, district or town on the opening screen, draw a box on the map, or open one of three examples (Kano, Nigeria; the Great Hungarian Plain; Saskatchewan, Canada). A short three-screen tour explains the steps on first use; "How it works" reopens it.
 2. **Season.** Months and year are set for you from the latitude (the latest finished season); change them to match the crop. Seasons may cross the new year. Advanced settings hold the comparison years (default 2001–2020), the satellite (Terra or Aqua) and the cropland-only switch.
 3. **Result.** A plain verdict on a five-step scale, the season's rank, greenness and rainfall, a yearly chart and a within-season curve, and the share of pixels in each class. The map shows the z-score, change, condition (VCI), greenness or cropland share; hover for a pixel's values. Export: printable report, map PNG, GeoTIFF (7 bands on the MODIS sinusoidal grid), seasons CSV, pixels CSV, JSON, and a share link that reruns the analysis.
 

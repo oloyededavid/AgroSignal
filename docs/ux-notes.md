@@ -15,7 +15,14 @@ The page was hard to use: a dense side rail of form steps, a results area full o
 | A Downloads menu | One Export button opening a list of seven exports, each with a one-line description |
 | Green accent throughout | Neutral surfaces and one cobalt accent; the brown–teal data ramp is kept (colour-blind check unchanged) |
 
-Examples: Kano 2026 (the validated case), Punjab 2023 and Saskatchewan 2021. The last two use the settings that passed `tests/global_check.mjs`; they are run demonstrations, not validated against crop statistics. The example cards state no result; the result comes from each run.
+Examples: Kano 2026 (the validated case), the Great Hungarian Plain near Szentes 2022 and Saskatchewan 2021. Hungary replaced Punjab so that Europe is represented; it was chosen from two European candidates run on 27 November 2026 (`tests/europe_check.mjs`, output in `docs/validation/europe-check.txt`) because its result is clear (regional z −3.14, lowest of 21 seasons, rainfall −51%). Saskatchewan uses the settings that passed `tests/global_check.mjs`. Hungary and Saskatchewan are run demonstrations, not validated against crop statistics. The example buttons state no result; the result comes from each run.
+
+### Landing page and onboarding (second pass, same day)
+
+- The opening screen is left-aligned with one headline, one line of text, the search box and three example buttons. The right side shows a real result card: the map crop, verdict, figures and export formats come from a Kano run's own exports (`tools/make_preview.py` writes `assets/preview.json` and `assets/preview-map.webp`), so no figure on it is typed by hand.
+- A three-screen tour (place, season, result and export) opens the first time someone enters the app by search or by drawing; the browser remembers it. "How it works" in the top bar reopens it. Examples and shared links skip it, so they run at once.
+- "New analysis" in the top bar returns to the opening screen.
+- The result sentence keeps only the rank and the rainfall; pixel counts and the z-score are under Run details.
 
 Default months by latitude (south of 5° S: November to March; 5° S to 40° N: June to October; north of 40° N: May to August) are a starting point only. The page says so and asks the user to match their crop.
 

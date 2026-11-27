@@ -1,0 +1,3 @@
+Run 27 November 2026, node tests/europe_check.mjs (live Planetary Computer archive, hosted CHIRPS, NASA POWER)
+Beauce, France, Apr-Jul 2022: 52 s, 147 composites, 16772 pixels, NDVI 0.608 vs 0.638, z -1.09, rank 2/20, missing ; rain 181 mm (-16%); t 16.6
+Great Hungarian Plain, Jun-Aug 2022: 40 s, 105 composites, 11430 pixels, NDVI 0.407 vs 0.568, z -3.14, rank 0/20, missing ; rain 98 mm (-51%); t 26.1
