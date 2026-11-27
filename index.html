@@ -22,7 +22,8 @@
 <header class="bar">
   <a class="brand" href="./"><span class="mark" aria-hidden="true"></span>AgroSignal</a>
   <nav class="bar-nav" aria-label="Main">
-    <button class="link" id="how-open" type="button">How it works</button>
+    <button class="link" id="home" type="button" hidden>New analysis</button>
+    <button class="link" id="how-open" type="button" aria-haspopup="dialog">How it works</button>
     <button class="link" id="about-open" type="button" aria-haspopup="dialog">Method</button>
     <details class="menu"><summary class="link">More tools</summary><div class="menu-list">
       <a href="https://oloyededavid.github.io/geospatial-rs-portfolio/twin/">City Twins<span>A city's climate twin in another country</span></a>
@@ -34,23 +35,29 @@
 </header>
 
 <section class="welcome" id="welcome" aria-labelledby="w-title">
-  <div class="w-inner">
-    <p class="eyebrow">Crop season monitor</p>
-    <h1 id="w-title">Was this growing season greener than usual?</h1>
-    <p class="lede">Pick a farming area anywhere on Earth. AgroSignal compares one season with twenty years of satellite records and rainfall, and tells you where it stands.</p>
-    <form class="search big" id="w-search" role="search" autocomplete="off">
-      <input id="w-q" type="search" placeholder="Search a region, district or town" aria-label="Search a place">
-      <button class="btn primary" type="submit">Search</button>
-      <ul class="results" id="w-results" hidden></ul>
-    </form>
-    <p class="or">or open an example</p>
-    <div class="examples" id="examples"></div>
-    <ol class="how">
-      <li><span>1</span><b>Choose a place</b>Search, or draw a box on the map.</li>
-      <li><span>2</span><b>Choose a season</b>Months and year, with defaults set for you.</li>
-      <li><span>3</span><b>Read and export</b>A plain verdict, map, charts and files.</li>
-    </ol>
-    <button class="link quiet" id="w-skip" type="button">Skip and use the map</button>
+  <div class="w-grid">
+    <div class="w-left">
+      <h1 id="w-title">Was this growing season greener than usual?</h1>
+      <p class="lede">Search any farming area. Get a verdict against twenty years of satellite records in about a minute.</p>
+      <form class="search big" id="w-search" role="search" autocomplete="off">
+        <input id="w-q" type="search" placeholder="Search a region, district or town" aria-label="Search a place">
+        <button class="btn primary" type="submit">Search</button>
+        <ul class="results" id="w-results" hidden></ul>
+      </form>
+      <div class="try"><span>Try</span><div class="examples" id="examples"></div></div>
+      <button class="link quiet" id="w-skip" type="button">Or draw an area on the map</button>
+    </div>
+    <figure class="preview" aria-label="What a result looks like">
+      <div class="pv-top"><span class="pv-search" id="pv-place"></span><span class="pv-steps"><i class="ok"></i><i class="ok"></i><i class="on"></i></span></div>
+      <img class="pv-map" src="assets/preview-map.webp" alt="Map of how unusual the season was, pixel by pixel" width="600" height="477">
+      <div class="pv-body">
+        <p class="pv-verdict" id="pv-verdict"></p>
+        <div class="pv-scale" aria-hidden="true"><i></i><i></i><i></i><i></i><i class="on"></i></div>
+        <div class="pv-stats" id="pv-stats"></div>
+        <div class="pv-x"><b>Export</b><span>Report</span><span>GeoTIFF</span><span>CSV</span><span>Map image</span><span>Share link</span></div>
+      </div>
+      <figcaption id="pv-cap"></figcaption>
+    </figure>
   </div>
 </section>
 
@@ -178,6 +185,18 @@
     <div class="tip" id="tip" hidden></div>
   </div>
 </main>
+
+<dialog class="sheet tour" id="tour" aria-labelledby="tour-h">
+  <div class="tour-art" id="tour-art" aria-hidden="true"></div>
+  <p class="tour-n" id="tour-n"></p>
+  <h2 id="tour-h"></h2>
+  <p id="tour-t"></p>
+  <div class="tour-foot">
+    <div class="dots" id="tour-dots" aria-hidden="true"><i></i><i></i><i></i></div>
+    <button class="btn ghost sm" type="button" id="tour-skip">Skip</button>
+    <button class="btn primary sm" type="button" id="tour-next">Next</button>
+  </div>
+</dialog>
 
 <dialog class="sheet" id="export" aria-labelledby="x-h">
   <div class="sheet-h"><h2 id="x-h">Export</h2><button class="btn ghost sm" type="button" data-close>Close</button></div>

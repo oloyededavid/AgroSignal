@@ -1,0 +1,20 @@
+{
+ "label": "Farmland near Bagwai, Kano, Nigeria",
+ "year": 2026,
+ "season": {
+  "start": "06-01",
+  "end": "10-31"
+ },
+ "baseline": [
+  2001,
+  2020
+ ],
+ "ndvi": 0.525,
+ "usual": 0.453,
+ "rankBelow": 20,
+ "baselineSeasons": 20,
+ "regionalZ": 2.97,
+ "rainPct": 2,
+ "version": "1.2.0",
+ "runAt": "2026-11-27T15:24:13.102Z"
+}

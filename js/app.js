@@ -54,11 +54,36 @@ document.querySelectorAll('#stepper button').forEach(b => b.addEventListener('cl
 document.querySelectorAll('[data-goto]').forEach(b => b.addEventListener('click', () => show(b.dataset.goto)));
 
 // welcome: the front door; closing it reveals the app
-function closeWelcome() { $('welcome').hidden = true; $('app').inert = false; document.body.classList.remove('welcoming'); map.resize(); }
-function openWelcome() { if (S.running) return; $('welcome').hidden = false; $('app').inert = true; document.body.classList.add('welcoming'); $('w-q').focus(); }
+function closeWelcome() { $('welcome').hidden = true; $('app').inert = false; $('home').hidden = false; document.body.classList.remove('welcoming'); map.resize(); }
+function openWelcome() { if (S.running) return; $('welcome').hidden = false; $('app').inert = true; $('home').hidden = true; document.body.classList.add('welcoming'); $('w-q').value = ''; $('w-q').focus(); }
 document.body.classList.add('welcoming'); $('app').inert = true;
-$('w-skip').addEventListener('click', () => { closeWelcome(); show('place'); });
-$('how-open').addEventListener('click', openWelcome);
+$('w-skip').addEventListener('click', () => { closeWelcome(); show('place'); firstTour(); });
+$('home').addEventListener('click', openWelcome);
+$('how-open').addEventListener('click', () => openTour(0));
+
+// onboarding: three short screens, shown once on first use (remembered in this browser) and from "How it works"
+const TOUR = [
+  { h: 'Choose a place', t: 'Search a district or town, or draw a box on the map. Any farming area from 1 to 2,500 km².',
+    art: '<div class="mk"><div class="mk-field">Search a place</div><div class="mk-box"></div></div>' },
+  { h: 'Set the season', t: 'Months and year are filled in for your latitude. Change them to match the crop, then press Analyse.',
+    art: '<div class="mk"><div class="mk-row"><div class="mk-field sel">Jun<span>▾</span></div><div class="mk-field sel">Oct<span>▾</span></div><div class="mk-field sel">2026<span>▾</span></div></div><div class="mk-btn">Analyse season</div></div>' },
+  { h: 'Read and export', t: 'A plain verdict against twenty years, a map of every field, charts, and files for reports or GIS.',
+    art: '<div class="mk"><div class="mk-verdict">Greener than usual</div><div class="pv-scale"><i></i><i></i><i></i><i class="on"></i><i></i></div><div class="mk-chips"><span>Report</span><span>GeoTIFF</span><span>CSV</span><span>Map image</span><span>Share link</span></div></div>' },
+];
+let tourAt = 0;
+function renderTour() {
+  const T = TOUR[tourAt];
+  $('tour-art').innerHTML = T.art; $('tour-n').textContent = `Step ${tourAt + 1} of ${TOUR.length}`; $('tour-h').textContent = T.h; $('tour-t').textContent = T.t;
+  document.querySelectorAll('#tour-dots i').forEach((d, i) => d.classList.toggle('on', i === tourAt));
+  $('tour-next').textContent = tourAt === TOUR.length - 1 ? 'Start' : 'Next';
+  $('tour-skip').hidden = tourAt === TOUR.length - 1;
+}
+function openTour(k) { tourAt = k; renderTour(); if (!$('tour').open) $('tour').showModal(); $('tour-next').focus(); }
+function closeTour() { $('tour').close(); try { localStorage.setItem('agrosignal.tour', '1'); } catch { /* storage may be blocked */ } }
+function firstTour() { let seen = false; try { seen = localStorage.getItem('agrosignal.tour') === '1'; } catch { /* treat as not seen */ } if (!seen) openTour(0); }
+$('tour-next').addEventListener('click', () => { if (tourAt < TOUR.length - 1) { tourAt++; renderTour(); } else closeTour(); });
+$('tour-skip').addEventListener('click', closeTour);
+$('tour').addEventListener('cancel', () => { try { localStorage.setItem('agrosignal.tour', '1'); } catch { /* ignore */ } });
 
 // ---------------------------------------------------------------- map
 const map = new maplibregl.Map({ container: 'map', style: 'https://tiles.openfreemap.org/styles/positron', center: [10, 15], zoom: 2.2,
@@ -167,7 +192,7 @@ function bindSearch(form, input, list, after) {
   });
   document.addEventListener('click', e => { if (!form.contains(e.target)) list.hidden = true; });
 }
-bindSearch($('w-search'), $('w-q'), $('w-results'), () => closeWelcome());
+bindSearch($('w-search'), $('w-q'), $('w-results'), () => { closeWelcome(); firstTour(); });
 bindSearch($('search'), $('q'), $('results'), () => {});
 
 // ---------------------------------------------------------------- season
@@ -242,11 +267,11 @@ checkSeason();
 
 // ---------------------------------------------------------------- examples (settings as in docs/validation/global-check.txt and the Kano tests)
 const EXAMPLES = [
-  { name: 'Kano, Nigeria', what: 'Savanna farmland', when: 'Jun–Oct 2026', label: 'Farmland near Bagwai, Kano, Nigeria', bbox: [8.0, 12.0, 8.4, 12.4], m0: 6, m1: 10, year: 2026, b0: 2001, b1: 2020 },
-  { name: 'Punjab, India', what: 'Indo-Gangetic plain', when: 'Jun–Oct 2023', label: 'Farmland near Ludhiana, Punjab, India', bbox: [75.6, 30.6, 76.0, 30.9], m0: 6, m1: 10, year: 2023, b0: 2003, b1: 2020 },
-  { name: 'Saskatchewan, Canada', what: 'Prairie farmland', when: 'May–Aug 2021', label: 'Farmland near Saskatoon, Saskatchewan, Canada', bbox: [-106.8, 51.9, -106.4, 52.2], m0: 5, m1: 8, year: 2021, b0: 2003, b1: 2020 },
+  { short: 'Kano', year: 2026, when: 'Jun–Oct 2026', label: 'Farmland near Bagwai, Kano, Nigeria', bbox: [8.0, 12.0, 8.4, 12.4], m0: 6, m1: 10, b0: 2001, b1: 2020 },
+  { short: 'Hungary', year: 2022, when: 'Jun–Aug 2022', label: 'Farmland near Szentes, Hungary', bbox: [20.0, 46.5, 20.4, 46.8], m0: 6, m1: 8, b0: 2001, b1: 2020 },
+  { short: 'Saskatchewan', year: 2021, when: 'May–Aug 2021', label: 'Farmland near Saskatoon, Saskatchewan, Canada', bbox: [-106.8, 51.9, -106.4, 52.2], m0: 5, m1: 8, b0: 2003, b1: 2020 },
 ];
-$('examples').innerHTML = EXAMPLES.map((e, i) => `<button class="ex" type="button" data-ex="${i}"><b>${e.name}</b><span>${e.what}</span><span>${e.when}</span><em>Open example</em></button>`).join('');
+$('examples').innerHTML = EXAMPLES.map((e, i) => `<button class="ex" type="button" data-ex="${i}" title="${e.label}, ${e.when}">${e.short}<span>${e.year}</span></button>`).join('');
 document.querySelectorAll('[data-ex]').forEach(b => b.addEventListener('click', () => runExample(EXAMPLES[+b.dataset.ex])));
 async function runExample(e) {
   closeWelcome();
@@ -383,7 +408,7 @@ function showResult(r) {
     const rz = ok(cl.rainSd) && cl.rainSd > 0 ? (cl.rain - cl.rainMean) / cl.rainSd : NaN;
     rain = ` Rainfall (CHIRPS estimate) was ${fmt(Math.abs(cl.rainPct), 0)}% ${cl.rainPct >= 0 ? 'above' : 'below'} average${ok(rz) ? `, ${Math.abs(rz) < 0.5 ? 'within the usual range' : Math.abs(rz) < 1.5 ? (rz > 0 ? 'a wet season' : 'a dry season') : (rz > 0 ? 'a very wet season' : 'a very dry season')}` : ''}.`;
   }
-  $('r-reading').textContent = `${rank}, across ${s.pixelsAnalysed.toLocaleString('en-GB')} ${m.cropOnly ? 'cropland ' : ''}pixels (regional z-score ${sgn(z)}).${rain}`;
+  $('r-reading').textContent = `${rank}.${rain}`;
   const stat = (l, v, d) => `<div class="stat"><div class="l">${l}</div><div class="v">${v}</div><div class="d">${d}</div></div>`;
   $('r-stats').innerHTML = stat('Greenness', fmt(t.ndvi, 3), `usual ${fmt(s.baseline.ndviMean, 3)}`)
     + stat('Rank', `${ordinal(n - t.rankBelow + 1)}<small>of ${n + 1}</small>`, 'seasons, by greenness')
@@ -406,7 +431,7 @@ function renderRun(r) {
     ['Area', `${esc(m.label || '')}, ${fmt(m.aoiAreaKm2, 0)} km²`],
     ['Season', `${esc(m.season.start)} to ${esc(m.season.end)}, ${m.year}`],
     ['Compared with', `${m.baseline[0]}–${m.baseline[1]}${s.baseline.missingYears.length ? ` (no images in ${s.baseline.missingYears.join(', ')})` : ''}`],
-    ['Greenness', `${fmt(s.target.ndvi, 3)}; usual ${fmt(s.baseline.ndviMean, 3)} ± ${fmt(s.baseline.ndviSd, 3)}; mean pixel z ${sgn(s.target.z)}; change ${sgn(s.target.anomaly, 3)}; VCI ${fmt(s.target.vci, 0)}`],
+    ['Greenness', `${fmt(s.target.ndvi, 3)}; usual ${fmt(s.baseline.ndviMean, 3)} ± ${fmt(s.baseline.ndviSd, 3)}; regional z-score ${sgn(s.regionalZ)}; mean pixel z ${sgn(s.target.z)}; change ${sgn(s.target.anomaly, 3)}; VCI ${fmt(s.target.vci, 0)}`],
     ['Pixels', `${s.pixelsInside.toLocaleString('en-GB')} in the area${m.cropOnly ? `, ${s.pixelsMasked.toLocaleString('en-GB')} at least half cropland` : ''}, ${s.pixelsAnalysed.toLocaleString('en-GB')} analysed (${fmt(s.pixelAreaKm2, 4)} km² each)`],
     ['Rainfall', ok(cl.rain) ? `${int(cl.rain)} mm over ${cl.rainMonths.length} months; usual ${int(cl.rainMean)} mm; ${cl.rainFallback ? 'the one CHIRPS cell containing the area (the area is smaller than a cell)' : `${cl.rainCells} CHIRPS cell${cl.rainCells === 1 ? '' : 's'}`}; CHIRPS is a satellite and station estimate${ok(a.ndviRainR) ? `. Greenness and rainfall correlate at r = ${fmt(a.ndviRainR, 2)} (${strength(a.ndviRainR)}) over the comparison years; that is association, not cause` : ''}` : esc(cl.rainNote || 'not available')],
     ['Temperature', ok(cl.t2m) ? `${fmt(cl.t2m, 1)} °C; usual ${fmt(cl.t2mMean, 1)} °C (NASA POWER)` : esc(cl.tempNote || 'not available')],
@@ -610,7 +635,7 @@ async function printReport() {
 // ---------------------------------------------------------------- dialogs
 $('about-open').addEventListener('click', () => $('about').showModal());
 document.querySelectorAll('dialog').forEach(d => {
-  d.querySelector('[data-close]').addEventListener('click', () => d.close());
+  const x = d.querySelector('[data-close]'); if (x) x.addEventListener('click', () => d.close());
   d.addEventListener('click', e => { if (e.target === d) d.close(); });   // a click on the backdrop
 });
 document.addEventListener('keydown', e => { if (e.key === 'Escape' && drawing) setDraw(false); });
@@ -620,6 +645,16 @@ fetch('data/chirps/index.json').then(r => r.json()).then(ix => {
   const y = Math.max(...Object.keys(ix.years).map(Number)), mm = Math.max(...ix.years[y].months);
   $('chirps-end').textContent = `; to ${MONTHS[mm - 1]} ${y}`;
 }).catch(() => {});
+
+// landing preview: figures from a real run (assets/preview.json, written by tools/make_preview.py)
+fetch('assets/preview.json').then(r => r.json()).then(p => {
+  const k = classOf(p.regionalZ), m0 = +p.season.start.slice(0, 2), m1 = +p.season.end.slice(0, 2);
+  $('pv-place').textContent = p.label;
+  $('pv-verdict').textContent = k === 2 ? 'A usual season' : `${CLASS[k].t} than usual`;
+  document.querySelectorAll('.pv-scale i').forEach((x, i) => x.classList.toggle('on', i === k));
+  $('pv-stats').innerHTML = `<div><b>${fmt(p.ndvi, 3)}</b>usual ${fmt(p.usual, 3)}</div><div><b>${ordinal(p.baselineSeasons - p.rankBelow + 1)}</b>of ${p.baselineSeasons + 1} seasons</div><div><b>${sgn(p.rainPct, 0)}%</b>rainfall</div>`;
+  $('pv-cap').textContent = `A real result: ${seasonText(m0, m1, p.year)} against ${p.baseline[0]}–${p.baseline[1]}, AgroSignal ${p.version}. Map © OpenStreetMap contributors, OpenFreeMap.`;
+}).catch(() => { document.querySelector('.preview').hidden = true; });
 
 // ---------------------------------------------------------------- start
 show('place');
