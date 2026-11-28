@@ -37,6 +37,10 @@ python3 pipeline/reference_climate.py OUT.json 8 12 8.4 12.4   # rainfall from t
 node tests/sensor_check.mjs 2026           # Terra against Aqua
 node tests/global_check.mjs                # four other regions, including one outside rainfall coverage
 node tests/fixture_kano.mjs                # fixed-input regression test (page served on 8765)
+node tests/europe_check.mjs                # the two European candidates for the Hungary example
+node tests/crop_check.mjs REF.json OUT.json # cropland share against the Python reference
+node tests/years_check.mjs                 # recent target years at Kano, to check for a post-2020 shift
+# tests/fixture_fetch.mjs is the record-and-replay helper that fixture_kano.mjs uses
 node tests/browser_e2e.cjs OUT_DIR         # whole page in headless Chromium, desktop and phone (page served on 8765)
 ```
 
@@ -56,6 +60,9 @@ python3 pipeline/build_chirps.py 2026 2027
 | `js/engine.js` | Pure functions (no network), unit-tested |
 | `js/io.js` | STAC search, read tokens, Cloud Optimised GeoTIFF reading onto the analysis grid |
 | `js/exports.js` | GeoTIFF writer and CSV files |
+| `js/version.js` | The version number, used by the page and the exports |
+| `assets/` | Fonts, icon, and the landing card (`preview.json`, `preview-map.webp`) |
+| `tools/make_preview.py` | Builds the landing card from a real run's exports |
 | `data/chirps/` | CHIRPS v3.0 monthly rainfall at 0.2°, one 12-band GeoTIFF per year, with `index.json` |
 | `pipeline/` | Archive builder and independent Python references |
 | `tests/` | Unit, end-to-end, reference, sensor and browser tests |

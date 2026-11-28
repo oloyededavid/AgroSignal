@@ -64,4 +64,8 @@ Phone map overlays (after 1.1.1, same version): at 860 px and below the scale ba
 | 23 | 390 px phone: search "Ludhiana", pick the first result, run with the preset season | season preset, no horizontal scroll, result | Jun–Oct 2026 preset; 0 px overflow on the opening, season and result screens; run completed | Pass |
 | 24 | Console errors across both runs | none | none | Pass |
 
-Not checked in 1.2.0: the printed report (headless print was not inspected), screen readers, real touch devices, and the Punjab and Saskatchewan examples from the opening screen (their settings ran in `global_check.mjs` on 23 November).
+Not checked in 1.2.0: the printed report (headless print was not inspected), screen readers, real touch devices, and the Hungary and Saskatchewan examples from the opening screen (their settings ran in the engine: `europe_check.mjs` on 27 November and `global_check.mjs` on 23 November).
+
+### Audit after 1.2.0 (28 November 2026)
+
+An independent audit found no high-severity defect. Fixed: the top bar's New analysis is disabled during a run; How it works and Method are reachable on phones (Method moves into the More menu); the no-cropland message now names the Cropland pixels only setting, and the error view has Try again; a box wholly outside 60° S to 80° N says so instead of reporting a misleading area; two axe findings on the result view (a second map region, no h1) and unnamed temporary download links; Escape closes the place list; focus returns to the step heading after the tour; landing and tour wording on run time and baseline years; stale version and example references in the docs.

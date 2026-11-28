@@ -42,6 +42,7 @@ function show(v) {
   const h = document.querySelector(`[data-view="${v}"] h2`); if (h && $('welcome').hidden) { h.tabIndex = -1; h.focus({ preventScroll: true }); }
 }
 function syncStepper() {
+  $('home').disabled = !!(S.running);   // no leaving mid-run from the top bar
   const cur = ORDER.indexOf(STEP_OF[S.view]);
   const can = { place: !S.running, season: !S.running && !!(S.aoi && S.aoi.ok), result: !S.running && !!S.result };
   document.querySelectorAll('#stepper li').forEach(li => {
@@ -67,7 +68,7 @@ const TOUR = [
     art: '<div class="mk"><div class="mk-field">Search a place</div><div class="mk-box"></div></div>' },
   { h: 'Set the season', t: 'Months and year are filled in for your latitude. Change them to match the crop, then press Analyse.',
     art: '<div class="mk"><div class="mk-row"><div class="mk-field sel">Jun<span>▾</span></div><div class="mk-field sel">Oct<span>▾</span></div><div class="mk-field sel">2026<span>▾</span></div></div><div class="mk-btn">Analyse season</div></div>' },
-  { h: 'Read and export', t: 'A plain verdict against twenty years, a map of every field, charts, and files for reports or GIS.',
+  { h: 'Read and export', t: 'A plain verdict against past seasons, a map of every field, charts, and files for reports or GIS.',
     art: '<div class="mk"><div class="mk-verdict">Greener than usual</div><div class="pv-scale"><i></i><i></i><i></i><i class="on"></i><i></i></div><div class="mk-chips"><span>Report</span><span>GeoTIFF</span><span>CSV</span><span>Map image</span><span>Share link</span></div></div>' },
 ];
 let tourAt = 0;
@@ -115,9 +116,10 @@ const boxKm2 = b => { const R = 6371.0088, r = Math.PI / 180; return R * R * Mat
 async function setAoi(b, label, note) {
   if (S.running) { worker.postMessage({ cmd: 'cancel', id: 0 }); runSeq++; S.running = false; }   // a new place ends the running analysis
   const shift = Math.round(((b[0] + b[2]) / 2) / 360) * 360;   // the map repeats sideways: bring the box back to -180..180
+  const outside = b[3] <= -60 || b[1] >= 80;   // wholly outside the MODIS and WorldCover range used here
   b = [b[0] - shift, Math.max(-60, b[1]), b[2] - shift, Math.min(80, b[3])];
   const area = boxKm2(b), crosses = b[0] < -180 || b[2] > 180;
-  const problem = crosses ? 'The box crosses the 180° meridian. Draw it on one side.'
+  const problem = outside ? 'Outside 60° S to 80° N, the range this tool covers.' : crosses ? 'The box crosses the 180° meridian. Draw it on one side.'
     : area > LIMIT_KM2 ? `Larger than the ${int(LIMIT_KM2)} km² limit. Draw a smaller box.`
     : area < 1 ? 'Smaller than the 1 km² minimum. Draw a larger box.' : '';
   if (S.result && !S.running) clearResult();
@@ -161,6 +163,7 @@ map.on('mouseup', finish); map.on('touchend', finish);
 // place search (welcome and step 1 share it)
 function bindSearch(form, input, list, after) {
   const msg = t => { list.hidden = false; list.innerHTML = `<li class="msg">${t}</li>`; };
+  input.addEventListener('keydown', e => { if (e.key === 'Escape') list.hidden = true; });
   form.addEventListener('submit', async ev => {
     ev.preventDefault();
     const q = input.value.trim();
@@ -289,6 +292,7 @@ function stage(k) { const i = STAGES.indexOf(k); document.querySelectorAll('#sta
 const seasonText = (m0, m1, year) => `${MONTHS[m0 - 1].slice(0, 3)}–${MONTHS[m1 - 1].slice(0, 3)} ${year}${m1 < m0 ? `/${String(year + 1).slice(2)}` : ''}`;
 $('run').addEventListener('click', () => runNow());
 $('cancel').addEventListener('click', () => { worker.postMessage({ cmd: 'cancel', id: 0 }); });
+$('retry').addEventListener('click', () => runNow());
 async function runNow() {
   if (!S.aoi || !S.aoi.ok || seasonProblem()) { show(S.aoi && S.aoi.ok ? 'season' : 'place'); return; }
   const mine = ++runSeq, a = seasonArgs();
@@ -557,7 +561,7 @@ window.addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(() =
 
 // ---------------------------------------------------------------- export
 const fileBase = () => { const m = S.result.meta; return `agrosignal_${m.year}_${m.season.start.slice(0, 2)}-${m.season.end.slice(0, 2)}`; };
-function save(blob, name) { const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = name; document.body.append(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1000); }
+function save(blob, name) { const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = name; a.setAttribute('aria-label', name); document.body.append(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1000); }
 $('export-open').addEventListener('click', () => { $('x-note').textContent = ''; $('export').showModal(); });
 document.querySelectorAll('[data-x]').forEach(b => b.addEventListener('click', async () => {
   if (!S.result) return;
@@ -634,6 +638,8 @@ async function printReport() {
 
 // ---------------------------------------------------------------- dialogs
 $('about-open').addEventListener('click', () => $('about').showModal());
+document.querySelectorAll('[data-method]').forEach(b => b.addEventListener('click', () => { document.querySelector('.menu').open = false; $('about').showModal(); }));
+$('tour').addEventListener('close', () => { const h = document.querySelector(`[data-view="${S.view}"] h2`); if (h && $('welcome').hidden) { h.tabIndex = -1; h.focus(); } });
 document.querySelectorAll('dialog').forEach(d => {
   const x = d.querySelector('[data-close]'); if (x) x.addEventListener('click', () => d.close());
   d.addEventListener('click', e => { if (e.target === d) d.close(); });   // a click on the backdrop

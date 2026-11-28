@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>AgroSignal</title>
-<meta name="description" content="Was this growing season greener or browner than usual? Pick a farming area anywhere on Earth and compare one season with twenty years of satellite records, with rainfall. Runs in the browser.">
+<meta name="description" content="Was this growing season greener or browner than usual? Pick a farming area anywhere between 60° S and 80° N and compare one season with twenty years of satellite records, with rainfall. Runs in the browser.">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <meta property="og:type" content="website">
 <meta property="og:title" content="AgroSignal">
@@ -25,7 +25,8 @@
     <button class="link" id="home" type="button" hidden>New analysis</button>
     <button class="link" id="how-open" type="button" aria-haspopup="dialog">How it works</button>
     <button class="link" id="about-open" type="button" aria-haspopup="dialog">Method</button>
-    <details class="menu"><summary class="link">More tools</summary><div class="menu-list">
+    <details class="menu"><summary class="link">More</summary><div class="menu-list">
+      <button class="menu-method" type="button" data-method>Method<span>How it works, data and limits</span></button>
       <a href="https://oloyededavid.github.io/geospatial-rs-portfolio/twin/">City Twins<span>A city's climate twin in another country</span></a>
       <a href="https://oloyededavid.github.io/FloodScope/">FloodScope<span>Flood extent from radar</span></a>
       <a href="https://oloyededavid.github.io/GeoValidate/">GeoValidate<span>Honest accuracy for land-cover maps</span></a>
@@ -38,7 +39,7 @@
   <div class="w-grid">
     <div class="w-left">
       <h1 id="w-title">Was this growing season greener than usual?</h1>
-      <p class="lede">Search any farming area. Get a verdict against twenty years of satellite records in about a minute.</p>
+      <p class="lede">Search any farming area. Get a verdict against twenty years of satellite records in a minute or two.</p>
       <form class="search big" id="w-search" role="search" autocomplete="off">
         <input id="w-q" type="search" placeholder="Search a region, district or town" aria-label="Search a place">
         <button class="btn primary" type="submit">Search</button>
@@ -62,6 +63,7 @@
 </section>
 
 <main class="app" id="app">
+  <h1 class="sr-only">AgroSignal</h1>
   <aside class="panel" aria-label="Analysis">
     <ol class="stepper" id="stepper">
       <li data-s="place"><button type="button"><i>1</i>Place</button></li>
@@ -123,7 +125,7 @@
     <section class="view" data-view="error" hidden>
       <h2>The analysis stopped</h2>
       <p class="alert" id="err-msg"></p>
-      <div class="actions"><button class="btn ghost" type="button" data-goto="place">Change place</button><button class="btn primary grow" type="button" data-goto="season">Change season</button></div>
+      <div class="actions"><button class="btn ghost" type="button" data-goto="place">Change place</button><button class="btn ghost" type="button" id="retry">Try again</button><button class="btn primary grow" type="button" data-goto="season">Change season</button></div>
     </section>
 
     <section class="view result" data-view="result" hidden>
@@ -175,7 +177,7 @@
   </aside>
 
   <div class="mapwrap">
-    <div id="map" role="region" aria-label="Map"></div>
+    <div id="map" aria-label="Map"></div>
     <div class="map-hint" id="map-hint" hidden>Drag across the map to draw your area</div>
     <div class="map-note" id="mapnote" hidden>The basemap could not load. The analysis still works.</div>
     <div class="layer-card" id="layer-card" hidden>

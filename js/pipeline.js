@@ -133,7 +133,7 @@ export async function runAnalysis({ aoi, season, year, baseline, cropOnly = true
   const mask = new Uint8Array(grid.n);
   for (let i = 0; i < grid.n; i++) mask[i] = inside[i] && (!cropOnly || crop[i] >= p.cropMin) ? 1 : 0;
   const nMask = mask.reduce((s, v) => s + v, 0);
-  if (!nMask) throw new Error(cropOnly ? 'No pixels in this area are at least half cropland (ESA WorldCover); switch to all land' : 'No pixels inside the area');
+  if (!nMask) throw new Error(cropOnly ? 'No pixels in this area are at least half cropland (ESA WorldCover 2021). Choose farmland, or untick Cropland pixels only in Advanced settings' : 'No pixels inside the area');
 
   // regional numbers over a fixed set of pixels: in the mask and valid in the target and the baseline
   const fixed = new Uint8Array(grid.n);

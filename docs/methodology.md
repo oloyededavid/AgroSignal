@@ -1,6 +1,6 @@
 # AgroSignal methodology
 
-Version 1.0.0. The code that implements each step is named in brackets. The browser engine (`js/`) and the independent Python references (`pipeline/reference.py`, `pipeline/reference_climate.py`) implement the same rules without sharing code; they are compared in `docs/test-report.md`.
+Version 1.2.0 (the method is unchanged since 1.0.0). The code that implements each step is named in brackets. The browser engine (`js/`) and the independent Python references (`pipeline/reference.py`, `pipeline/reference_climate.py`) implement the same rules without sharing code; they are compared in `docs/test-report.md`.
 
 ## 1. Question
 
